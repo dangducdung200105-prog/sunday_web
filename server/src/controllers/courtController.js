@@ -10,6 +10,7 @@ const createCourt = async (req, res) => {
       sportType,
       address,
       pricePerHour,
+      slotDurationMinutes,
       openingTime,
       closingTime,
       images,
@@ -37,6 +38,7 @@ const createCourt = async (req, res) => {
       sportType,
       address,
       pricePerHour,
+      slotDurationMinutes,
       openingTime,
       closingTime,
       images,
@@ -85,10 +87,11 @@ const getCourts = async (req, res) => {
 
 const getCourtById = async (req, res) => {
   try {
-    const court = await Court.findById(req.params.id).populate(
-      "owner",
-      "name email",
-    );
+    const court = await Court.findOne({
+      _id: req.params.id,
+      status: "ACTIVE",
+      isApproved: true,
+    }).populate("owner", "name email");
 
     if (!court) {
       return res.status(404).json({
@@ -115,7 +118,10 @@ const getCourtById = async (req, res) => {
 
 const updateCourt = async (req, res) => {
   try {
-    const court = await Court.findById(req.params.id);
+    const court = await Court.findOne({
+      _id: req.params.id,
+      status: "ACTIVE",
+    });
 
     if (!court) {
       return res.status(404).json({
@@ -194,11 +200,13 @@ const deleteCourt = async (req, res) => {
       });
     }
 
-    await court.deleteOne();
+    court.status = "INACTIVE";
+
+    await court.save();
 
     res.status(200).json({
       success: true,
-      message: "Court deleted successfully",
+      message: "Court deactivated successfully",
     });
   } catch (error) {
     res.status(500).json({
@@ -207,11 +215,32 @@ const deleteCourt = async (req, res) => {
     });
   }
 };
+const getMyCourts = async (req, res) => {
+  try {
+    const courts = await Court.find({
+      owner: req.user._id,
+    }).sort({
+      createdAt: -1,
+    });
 
+    res.status(200).json({
+      success: true,
+      data: {
+        courts,
+      },
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
 module.exports = {
   createCourt,
   getCourts,
   getCourtById,
   updateCourt,
   deleteCourt,
+  getMyCourts,
 };

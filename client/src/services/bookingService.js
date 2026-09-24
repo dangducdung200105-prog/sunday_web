@@ -23,3 +23,8 @@ export const cancelBooking = async (bookingId) => {
 
   return response.data;
 };
+
+export const getOwnerBookings = async () => {
+  const response = await api.get("/bookings/owner-bookings");
+  return response.data;
+};

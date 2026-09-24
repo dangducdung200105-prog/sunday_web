@@ -271,9 +271,43 @@ const checkValidSlot = (court, startTime, endTime) => {
   return true;
 };
 
+const getOwnerBookings = async (req, res) => {
+  try {
+    const bookings = await Booking.find()
+      .populate({
+        path: "court",
+        match: {
+          owner: req.user._id,
+        },
+        select: "name address sportType",
+      })
+      .populate("user", "name email phone")
+      .sort({
+        bookingDate: -1,
+        startTime: -1,
+      });
+
+    // Vì populate match có thể trả court = null
+    const ownerBookings = bookings.filter((booking) => booking.court !== null);
+
+    res.status(200).json({
+      success: true,
+      data: {
+        bookings: ownerBookings,
+      },
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
 module.exports = {
   createBooking,
   getMyBookings,
   getBookingById,
   cancelBooking,
+  getOwnerBookings,
 };

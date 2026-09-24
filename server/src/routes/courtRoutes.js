@@ -6,6 +6,7 @@ const {
   getCourtById,
   updateCourt,
   deleteCourt,
+  getMyCourts,
 } = require("../controllers/courtController");
 
 const authMiddleware = require("../middlewares/authMiddleware");
@@ -15,6 +16,9 @@ const router = express.Router();
 
 // Public
 router.get("/", getCourts);
+
+router.get("/my-courts", authMiddleware, roleMiddleware("OWNER"), getMyCourts);
+
 router.get("/:id", getCourtById);
 
 // OWNER
