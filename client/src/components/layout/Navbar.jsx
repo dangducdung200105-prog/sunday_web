@@ -25,6 +25,10 @@ const Navbar = () => {
         <Link to="/courts">Tìm sân</Link>
 
         {isAuthenticated && <Link to="/my-bookings">Lịch đặt sân</Link>}
+
+        {isAuthenticated && user.role === "ADMIN" && (
+          <Link to="/admin">Quản trị</Link>
+        )}
       </nav>
 
       <div className="navbar-auth">

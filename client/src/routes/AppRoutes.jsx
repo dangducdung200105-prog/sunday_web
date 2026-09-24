@@ -7,6 +7,12 @@ import Register from "../pages/Register/Register";
 import CourtDetail from "../pages/CourtDetail/CourtDetail";
 import MyBookings from "../pages/MyBookings/MyBookings";
 import ProtectedRoute from "./ProtectedRoute";
+import AdminLayout from "../pages/Admin/AdminLayout";
+import AdminDashboard from "../pages/Admin/AdminDashboard";
+import AdminUsers from "../pages/Admin/AdminUsers";
+import AdminOwners from "../pages/Admin/AdminOwners";
+import AdminCourts from "../pages/Admin/AdminCourts";
+import AdminBookings from "../pages/Admin/AdminBookings";
 
 const AppRoutes = () => {
   return (
@@ -19,6 +25,16 @@ const AppRoutes = () => {
 
       <Route element={<ProtectedRoute />}>
         <Route path="/my-bookings" element={<MyBookings />} />
+      </Route>
+
+      <Route element={<ProtectedRoute allowedRoles={["ADMIN"]} />}>
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<AdminDashboard />} />
+          <Route path="users" element={<AdminUsers />} />
+          <Route path="owners" element={<AdminOwners />} />
+          <Route path="courts" element={<AdminCourts />} />
+          <Route path="bookings" element={<AdminBookings />} />
+        </Route>
       </Route>
     </Routes>
   );
