@@ -7,6 +7,7 @@ const {
   getBookingById,
   cancelBooking,
   getOwnerBookings,
+  getOwnerStatistics,
 } = require("../controllers/bookingController");
 
 const authMiddleware = require("../middlewares/authMiddleware");
@@ -24,6 +25,13 @@ router.get(
   authMiddleware,
   roleMiddleware("OWNER"),
   getOwnerBookings,
+);
+
+router.get(
+  "/owner-statistics",
+  authMiddleware,
+  roleMiddleware("OWNER"),
+  getOwnerStatistics,
 );
 
 // Xem một booking

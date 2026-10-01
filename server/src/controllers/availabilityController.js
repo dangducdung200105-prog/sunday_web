@@ -26,12 +26,14 @@ const getCourtAvailability = async (req, res) => {
       });
     }
 
+    const now = new Date();
     const bookings = await Booking.find({
       court: courtId,
       bookingDate: date,
-      status: {
-        $in: ["PENDING", "CONFIRMED"],
-      },
+      $or: [
+        { status: "CONFIRMED" },
+        { status: "PENDING", expiresAt: { $gt: now } },
+      ],
     });
 
     const bookedSlots = new Set(bookings.map((booking) => booking.startTime));

@@ -6,6 +6,7 @@ const userRoutes = require("./routes/userRoutes");
 const authRoutes = require("./routes/authRoutes");
 const availabilityRoutes = require("./routes/availabilityRoutes");
 const bookingRoutes = require("./routes/bookingRoutes");
+const paymentRoutes = require("./routes/paymentRoutes");
 const app = express();
 
 app.use(cors());
@@ -18,6 +19,7 @@ app.get("/api/health", (req, res) => {
   });
 });
 
+app.use("/api/payments", paymentRoutes);
 app.use("/api/availability", availabilityRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);

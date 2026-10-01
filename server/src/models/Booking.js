@@ -29,6 +29,11 @@ const bookingSchema = new mongoose.Schema(
       required: true,
     },
 
+    expiresAt: {
+      type: Date,
+      default: null,
+    },
+
     price: {
       type: Number,
       required: true,

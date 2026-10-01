@@ -63,15 +63,34 @@ const createBooking = async (req, res) => {
     }
 
     // 4. Kiểm tra booking đã tồn tại
+    const now = new Date();
+    await Booking.updateMany(
+      {
+        court: courtId,
+        bookingDate,
+        startTime,
+        status: "PENDING",
+        expiresAt: { $lte: now },
+      },
+      { $set: { status: "CANCELLED" } },
+    );
+
     const existingBooking = await Booking.findOne({
       court: courtId,
       bookingDate,
       startTime,
-      status: {
-        $in: ["PENDING", "CONFIRMED"],
-      },
+      $or: [
+        {
+          status: "CONFIRMED",
+        },
+        {
+          status: "PENDING",
+          expiresAt: {
+            $gt: now,
+          },
+        },
+      ],
     });
-
     if (existingBooking) {
       return res.status(409).json({
         success: false,
@@ -85,13 +104,16 @@ const createBooking = async (req, res) => {
     const price = court.pricePerHour * durationHours;
 
     // 6. Tạo booking
+    const expiresAt = new Date(Date.now() + 15 * 60 * 1000);
+
     const booking = await Booking.create({
       user: req.user._id,
-      court: courtId,
+      court: court._id,
       bookingDate,
       startTime,
       endTime,
       price,
+      expiresAt,
     });
 
     // 7. Trả response
@@ -271,6 +293,90 @@ const checkValidSlot = (court, startTime, endTime) => {
   return true;
 };
 
+const getOwnerStatistics = async (req, res) => {
+  try {
+    const courts = await Court.find({
+      owner: req.user._id,
+    }).select("_id");
+
+    const courtIds = courts.map((court) => court._id);
+
+    const totalCourts = courtIds.length;
+
+    const totalBookings = await Booking.countDocuments({
+      court: { $in: courtIds },
+    });
+
+    const pendingBookings = await Booking.countDocuments({
+      court: { $in: courtIds },
+      status: "PENDING",
+    });
+
+    const confirmedBookings = await Booking.countDocuments({
+      court: { $in: courtIds },
+      status: "CONFIRMED",
+    });
+
+    const completedBookings = await Booking.countDocuments({
+      court: { $in: courtIds },
+      status: "COMPLETED",
+    });
+
+    const revenueResult = await Booking.aggregate([
+      {
+        $match: {
+          court: { $in: courtIds },
+          status: {
+            $in: ["CONFIRMED", "COMPLETED"],
+          },
+          paymentStatus: "PAID",
+        },
+      },
+      {
+        $group: {
+          _id: null,
+          totalRevenue: {
+            $sum: "$price",
+          },
+        },
+      },
+    ]);
+
+    const totalRevenue =
+      revenueResult.length > 0 ? revenueResult[0].totalRevenue : 0;
+
+    const recentBookings = await Booking.find({
+      court: { $in: courtIds },
+    })
+      .populate("court", "name sportType address")
+      .populate("user", "name email")
+      .sort({
+        createdAt: -1,
+      })
+      .limit(5);
+
+    res.status(200).json({
+      success: true,
+      data: {
+        statistics: {
+          totalCourts,
+          totalBookings,
+          pendingBookings,
+          confirmedBookings,
+          completedBookings,
+          totalRevenue,
+        },
+        recentBookings,
+      },
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
 const getOwnerBookings = async (req, res) => {
   try {
     const bookings = await Booking.find()
@@ -310,4 +416,5 @@ module.exports = {
   getBookingById,
   cancelBooking,
   getOwnerBookings,
+  getOwnerStatistics,
 };
