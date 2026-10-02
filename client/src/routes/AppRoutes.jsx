@@ -14,6 +14,12 @@ import OwnerBookings from "../pages/Owner/OwnerBookings";
 import PaymentResult from "../pages/Payment/PaymentResult";
 import BookingDetail from "../pages/Booking/BookingDetail";
 import OwnerRoute from "./OwnerRoute";
+// import AdminLayout from "../pages/Admin/AdminLayout";
+// import AdminDashboard from "../pages/Admin/AdminDashboard";
+// import AdminUsers from "../pages/Admin/AdminUsers";
+// import AdminOwners from "../pages/Admin/AdminOwners";
+// import AdminCourts from "../pages/Admin/AdminCourts";
+// import AdminBookings from "../pages/Admin/AdminBookings";
 
 const AppRoutes = () => {
   return (
@@ -46,6 +52,15 @@ const AppRoutes = () => {
       </Route>
 
       <Route path="/payment-result" element={<PaymentResult />} />
+      {/* <Route element={<ProtectedRoute allowedRoles={["ADMIN"]} />}>
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<AdminDashboard />} />
+          <Route path="users" element={<AdminUsers />} />
+          <Route path="admin/owners" element={<AdminOwners />} />
+          <Route path="courts" element={<AdminCourts />} />
+          <Route path="bookings" element={<AdminBookings />} />
+        </Route>
+      </Route> */}
     </Routes>
   );
 };

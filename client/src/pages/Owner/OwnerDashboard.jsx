@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 
 import { getOwnerStatistics } from "../../services/bookingService";
+import "./Owner.css";
 
 const OwnerDashboard = () => {
   const { user } = useAuth();
@@ -51,10 +52,10 @@ const OwnerDashboard = () => {
   }
 
   return (
-    <div className="owner-dashboard page-container">
+    <div className="owner-dashboard owner-shell page-container">
       {/* HEADER */}
 
-      <div className="page-header">
+      <div className="owner-hero">
         <span>SUNDAY OWNER</span>
 
         <h1>Xin chào, {user?.name}</h1>
@@ -66,6 +67,7 @@ const OwnerDashboard = () => {
 
       <div className="owner-stats-grid">
         <div className="owner-stat-card">
+          <div className="owner-stat-icon">▦</div>
           <span>Sân của tôi</span>
 
           <strong>{statistics.totalCourts}</strong>
@@ -74,6 +76,7 @@ const OwnerDashboard = () => {
         </div>
 
         <div className="owner-stat-card">
+          <div className="owner-stat-icon">◷</div>
           <span>Tổng booking</span>
 
           <strong>{statistics.totalBookings}</strong>
@@ -82,6 +85,7 @@ const OwnerDashboard = () => {
         </div>
 
         <div className="owner-stat-card">
+          <div className="owner-stat-icon">!</div>
           <span>Đang chờ</span>
 
           <strong>{statistics.pendingBookings}</strong>
@@ -90,6 +94,7 @@ const OwnerDashboard = () => {
         </div>
 
         <div className="owner-stat-card owner-revenue-card">
+          <div className="owner-stat-icon">₫</div>
           <span>Doanh thu</span>
 
           <strong>{statistics.totalRevenue.toLocaleString("vi-VN")}đ</strong>
@@ -100,7 +105,7 @@ const OwnerDashboard = () => {
 
       {/* QUICK ACTIONS */}
 
-      <div className="owner-section">
+      <div className="owner-section owner-panel">
         <div className="owner-section-header">
           <div>
             <span>SUNDAY OWNER</span>
@@ -134,7 +139,7 @@ const OwnerDashboard = () => {
 
       {/* RECENT BOOKINGS */}
 
-      <div className="owner-section">
+      <div className="owner-section owner-panel">
         <div className="owner-section-header">
           <div>
             <span>SUNDAY OWNER</span>

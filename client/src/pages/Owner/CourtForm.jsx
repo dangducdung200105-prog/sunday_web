@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-
+import "./Owner.css";
 import {
   createCourt,
   getCourtById,
@@ -127,8 +127,8 @@ const CourtForm = () => {
   }
 
   return (
-    <div className="owner-form-page page-container">
-      <div className="page-header">
+    <div className="owner-form-page owner-shell page-container">
+      <div className="owner-form-hero">
         <span>SUNDAY OWNER</span>
 
         <h1>{isEditMode ? "Chỉnh sửa sân" : "Thêm sân mới"}</h1>
@@ -140,7 +140,7 @@ const CourtForm = () => {
         </p>
       </div>
 
-      <form className="court-form" onSubmit={handleSubmit}>
+      <form className="court-form owner-panel" onSubmit={handleSubmit}>
         {error && <div className="auth-error">{error}</div>}
 
         <div className="form-section">

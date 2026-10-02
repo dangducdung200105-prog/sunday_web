@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { getOwnerBookings } from "../../services/bookingService";
+import "./Owner.css";
 
 const OwnerBookings = () => {
   const [bookings, setBookings] = useState([]);
@@ -44,7 +45,7 @@ const OwnerBookings = () => {
   }
 
   return (
-    <div className="owner-page page-container">
+    <div className="owner-page owner-shell page-container">
       <div className="owner-page-header">
         <div>
           <span>SUNDAY OWNER</span>
@@ -64,7 +65,7 @@ const OwnerBookings = () => {
       ) : (
         <div className="owner-bookings-list">
           {bookings.map((booking) => (
-            <div className="owner-booking-card" key={booking._id}>
+            <article className="owner-booking-card" key={booking._id}>
               <div className="owner-booking-header">
                 <div>
                   <span className="booking-sport">
@@ -120,7 +121,7 @@ const OwnerBookings = () => {
                   <strong>{booking.paymentStatus}</strong>
                 </div>
               </div>
-            </div>
+            </article>
           ))}
         </div>
       )}

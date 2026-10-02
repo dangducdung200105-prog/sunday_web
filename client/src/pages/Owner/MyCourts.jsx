@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { getMyCourts, deleteCourt } from "../../services/courtService";
+import "./Owner.css";
 
 const MyCourts = () => {
   const [courts, setCourts] = useState([]);
@@ -63,7 +64,7 @@ const MyCourts = () => {
   }
 
   return (
-    <div className="owner-page page-container">
+    <div className="owner-page owner-shell page-container">
       <div className="owner-page-header">
         <div>
           <span>SUNDAY OWNER</span>
@@ -124,9 +125,13 @@ const MyCourts = () => {
                 </strong>
 
                 <div className="owner-court-actions">
-                  <Link to={`/owner/courts/${court._id}/edit`}>Chỉnh sửa</Link>
+                  <Link to={`/owner/courts/${court._id}/edit`}>
+                    ✎ Chỉnh sửa
+                  </Link>
 
-                  <button onClick={() => handleDelete(court._id)}>Xóa</button>
+                  <button onClick={() => handleDelete(court._id)}>
+                    Xóa sân
+                  </button>
                 </div>
               </div>
             </div>
