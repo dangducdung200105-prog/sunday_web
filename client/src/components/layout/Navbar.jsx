@@ -1,48 +1,93 @@
-import { Link, useNavigate } from "react-router-dom";
-
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import "./Navbar.css";
 
 const Navbar = () => {
   const { user, isAuthenticated, logout } = useAuth();
-
   const navigate = useNavigate();
 
   const handleLogout = () => {
     logout();
-
     navigate("/");
   };
 
   return (
     <header className="navbar">
-      <Link to="/" className="navbar-logo">
-        SUNDAY
-      </Link>
+      <div className="navbar-container">
+        {/* Logo */}
+        <Link to="/" className="navbar-logo">
+          SUNDAY
+          <span>.</span>
+        </Link>
 
-      <nav className="navbar-links">
-        <Link to="/">Trang chủ</Link>
+        {/* Navigation */}
+        <nav className="navbar-nav">
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              isActive ? "nav-link active" : "nav-link"
+            }
+          >
+            Home
+          </NavLink>
 
-        <Link to="/courts">Tìm sân</Link>
+          <NavLink
+            to="/courts"
+            className={({ isActive }) =>
+              isActive ? "nav-link active" : "nav-link"
+            }
+          >
+            Find Courts
+          </NavLink>
 
-        {isAuthenticated && <Link to="/my-bookings">Lịch đặt sân</Link>}
-      </nav>
+          {isAuthenticated && (
+            <NavLink
+              to="/my-bookings"
+              className={({ isActive }) =>
+                isActive ? "nav-link active" : "nav-link"
+              }
+            >
+              My Bookings
+            </NavLink>
+          )}
 
-      <div className="navbar-auth">
-        {isAuthenticated ? (
-          <>
-            <span>Xin chào, {user.name}</span>
+          {user?.role === "OWNER" && (
+            <NavLink
+              to="/owner"
+              className={({ isActive }) =>
+                isActive ? "nav-link active" : "nav-link"
+              }
+            >
+              Owner
+            </NavLink>
+          )}
+        </nav>
 
-            <button onClick={handleLogout}>Đăng xuất</button>
-          </>
-        ) : (
-          <>
-            <Link to="/login">Đăng nhập</Link>
+        {/* Actions */}
+        <div className="navbar-actions">
+          {isAuthenticated ? (
+            <>
+              <span className="navbar-user">Hi, {user?.name}</span>
 
-            <Link to="/register" className="navbar-register">
-              Đăng ký
-            </Link>
-          </>
-        )}
+              <button
+                className="btn btn-secondary navbar-logout"
+                onClick={handleLogout}
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <Link to="/login" className="btn btn-ghost">
+                Login
+              </Link>
+
+              <Link to="/register" className="btn btn-primary">
+                Get Started
+              </Link>
+            </>
+          )}
+        </div>
       </div>
     </header>
   );

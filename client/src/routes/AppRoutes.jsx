@@ -11,6 +11,8 @@ import OwnerDashboard from "../pages/Owner/OwnerDashboard";
 import MyCourts from "../pages/Owner/MyCourts";
 import CourtForm from "../pages/Owner/CourtForm";
 import OwnerBookings from "../pages/Owner/OwnerBookings";
+import PaymentResult from "../pages/Payment/PaymentResult";
+import BookingDetail from "../pages/Booking/BookingDetail";
 import OwnerRoute from "./OwnerRoute";
 
 const AppRoutes = () => {
@@ -40,7 +42,10 @@ const AppRoutes = () => {
 
       <Route element={<ProtectedRoute />}>
         <Route path="/my-bookings" element={<MyBookings />} />
+        <Route path="/bookings/:id" element={<BookingDetail />} />
       </Route>
+
+      <Route path="/payment-result" element={<PaymentResult />} />
     </Routes>
   );
 };

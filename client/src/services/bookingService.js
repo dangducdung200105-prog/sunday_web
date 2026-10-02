@@ -28,3 +28,9 @@ export const getOwnerBookings = async () => {
   const response = await api.get("/bookings/owner-bookings");
   return response.data;
 };
+
+export const getOwnerStatistics = async () => {
+  const response = await api.get("/bookings/owner-statistics");
+
+  return response.data;
+};

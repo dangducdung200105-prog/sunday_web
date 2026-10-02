@@ -132,7 +132,12 @@ const MyBookings = () => {
                   <strong>{booking.paymentStatus}</strong>
                 </div>
               </div>
-
+              <Link
+                to={`/bookings/${booking._id}`}
+                className="secondary-button"
+              >
+                Xem chi tiết
+              </Link>
               {booking.status !== "CANCELLED" &&
                 booking.status !== "COMPLETED" && (
                   <button

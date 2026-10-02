@@ -1,0 +1,443 @@
+{
+  "_meta": {
+    "database": "sunday",
+    "description": "SUNDAY MVP seed data. Import each collection array into the matching MongoDB collection, or use the included mongoimport commands in the response.",
+    "test_accounts": {
+      "admin@sunday.vn": "Admin@123",
+      "owner1@sunday.vn": "Owner@123",
+      "owner2@sunday.vn": "Owner@123",
+      "user1@sunday.vn": "User@123",
+      "user2@sunday.vn": "User@123",
+      "user3@sunday.vn": "User@123",
+      "user4@sunday.vn": "User@123",
+      "user5@sunday.vn": "User@123"
+    }
+  },
+  "users": [
+    {
+      "_id": {
+        "$oid": "68f000000000000000000001"
+      },
+      "name": "SUNDAY Admin",
+      "email": "admin@sunday.vn",
+      "password": "$2b$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy",
+      "phone": "0900000001",
+      "role": "ADMIN",
+      "avatar": null,
+      "isActive": true
+    },
+    {
+      "_id": {
+        "$oid": "68f000000000000000000002"
+      },
+      "name": "Nguyen Minh Anh",
+      "email": "owner1@sunday.vn",
+      "password": "$2b$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy",
+      "phone": "0900000002",
+      "role": "OWNER",
+      "avatar": null,
+      "isActive": true
+    },
+    {
+      "_id": {
+        "$oid": "68f000000000000000000003"
+      },
+      "name": "Tran Quoc Bao",
+      "email": "owner2@sunday.vn",
+      "password": "$2b$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy",
+      "phone": "0900000003",
+      "role": "OWNER",
+      "avatar": null,
+      "isActive": true
+    },
+    {
+      "_id": {
+        "$oid": "68f000000000000000000004"
+      },
+      "name": "Le Duc Nam",
+      "email": "user1@sunday.vn",
+      "password": "$2b$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy",
+      "phone": "0900000011",
+      "role": "USER",
+      "avatar": null,
+      "isActive": true
+    },
+    {
+      "_id": {
+        "$oid": "68f000000000000000000005"
+      },
+      "name": "Pham Gia Huy",
+      "email": "user2@sunday.vn",
+      "password": "$2b$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy",
+      "phone": "0900000012",
+      "role": "USER",
+      "avatar": null,
+      "isActive": true
+    },
+    {
+      "_id": {
+        "$oid": "68f000000000000000000006"
+      },
+      "name": "Doan Minh Khang",
+      "email": "user3@sunday.vn",
+      "password": "$2b$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy",
+      "phone": "0900000013",
+      "role": "USER",
+      "avatar": null,
+      "isActive": true
+    },
+    {
+      "_id": {
+        "$oid": "68f000000000000000000007"
+      },
+      "name": "Vu Hoang Long",
+      "email": "user4@sunday.vn",
+      "password": "$2b$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy",
+      "phone": "0900000014",
+      "role": "USER",
+      "avatar": null,
+      "isActive": true
+    },
+    {
+      "_id": {
+        "$oid": "68f000000000000000000008"
+      },
+      "name": "Bui Thanh Tung",
+      "email": "user5@sunday.vn",
+      "password": "$2b$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy",
+      "phone": "0900000015",
+      "role": "USER",
+      "avatar": null,
+      "isActive": true
+    }
+  ],
+  "courts": [
+    {
+      "_id": {
+        "$oid": "68f100000000000000000001"
+      },
+      "owner": {
+        "$oid": "68f000000000000000000002"
+      },
+      "name": "SUNDAY Badminton Arena",
+      "description": "Sân cầu lông tiêu chuẩn, không gian thoáng và sạch.",
+      "sportType": "BADMINTON",
+      "address": "18 Duy Tan, Cau Giay, Ha Noi",
+      "pricePerHour": 150000,
+      "slotDurationMinutes": 60,
+      "openingTime": "06:00",
+      "closingTime": "23:00",
+      "images": [],
+      "amenities": [
+        "Parking",
+        "Locker",
+        "Water",
+        "Air conditioning"
+      ],
+      "status": "ACTIVE",
+      "isApproved": true
+    },
+    {
+      "_id": {
+        "$oid": "68f100000000000000000002"
+      },
+      "owner": {
+        "$oid": "68f000000000000000000002"
+      },
+      "name": "Green Smash Badminton",
+      "description": "Cụm sân cầu lông dành cho người chơi phong trào.",
+      "sportType": "BADMINTON",
+      "address": "42 Tran Thai Tong, Cau Giay, Ha Noi",
+      "pricePerHour": 130000,
+      "slotDurationMinutes": 60,
+      "openingTime": "07:00",
+      "closingTime": "22:00",
+      "images": [],
+      "amenities": [
+        "Parking",
+        "Waiting area"
+      ],
+      "status": "ACTIVE",
+      "isApproved": true
+    },
+    {
+      "_id": {
+        "$oid": "68f100000000000000000003"
+      },
+      "owner": {
+        "$oid": "68f000000000000000000002"
+      },
+      "name": "Hanoi Shuttle Court",
+      "description": "Sân cầu lông giá tốt, phù hợp sinh viên.",
+      "sportType": "BADMINTON",
+      "address": "88 Nguyen Khang, Cau Giay, Ha Noi",
+      "pricePerHour": 100000,
+      "slotDurationMinutes": 60,
+      "openingTime": "08:00",
+      "closingTime": "22:00",
+      "images": [],
+      "amenities": [
+        "Parking",
+        "Drinking water"
+      ],
+      "status": "ACTIVE",
+      "isApproved": false
+    },
+    {
+      "_id": {
+        "$oid": "68f100000000000000000004"
+      },
+      "owner": {
+        "$oid": "68f000000000000000000003"
+      },
+      "name": "SUNDAY Football Center",
+      "description": "Sân bóng đá mini cỏ nhân tạo.",
+      "sportType": "FOOTBALL",
+      "address": "12 Pham Hung, Nam Tu Liem, Ha Noi",
+      "pricePerHour": 500000,
+      "slotDurationMinutes": 60,
+      "openingTime": "06:00",
+      "closingTime": "23:00",
+      "images": [],
+      "amenities": [
+        "Parking",
+        "Changing room",
+        "Shower"
+      ],
+      "status": "ACTIVE",
+      "isApproved": true
+    },
+    {
+      "_id": {
+        "$oid": "68f100000000000000000005"
+      },
+      "owner": {
+        "$oid": "68f000000000000000000003"
+      },
+      "name": "Green Field Football",
+      "description": "Cụm sân 7 người, phù hợp đặt theo đội.",
+      "sportType": "FOOTBALL",
+      "address": "101 To Huu, Ha Dong, Ha Noi",
+      "pricePerHour": 650000,
+      "slotDurationMinutes": 60,
+      "openingTime": "06:00",
+      "closingTime": "22:00",
+      "images": [],
+      "amenities": [
+        "Parking",
+        "Changing room",
+        "Lighting"
+      ],
+      "status": "ACTIVE",
+      "isApproved": true
+    },
+    {
+      "_id": {
+        "$oid": "68f100000000000000000006"
+      },
+      "owner": {
+        "$oid": "68f000000000000000000003"
+      },
+      "name": "Sunday Tennis Club",
+      "description": "Sân tennis ngoài trời với hệ thống chiếu sáng.",
+      "sportType": "TENNIS",
+      "address": "25 Vo Chi Cong, Tay Ho, Ha Noi",
+      "pricePerHour": 220000,
+      "slotDurationMinutes": 60,
+      "openingTime": "06:00",
+      "closingTime": "22:00",
+      "images": [],
+      "amenities": [
+        "Parking",
+        "Lighting",
+        "Water"
+      ],
+      "status": "ACTIVE",
+      "isApproved": true
+    },
+    {
+      "_id": {
+        "$oid": "68f100000000000000000007"
+      },
+      "owner": {
+        "$oid": "68f000000000000000000003"
+      },
+      "name": "Elite Tennis Arena",
+      "description": "Sân tennis cao cấp, phù hợp luyện tập và giao lưu.",
+      "sportType": "TENNIS",
+      "address": "66 Le Van Luong, Thanh Xuan, Ha Noi",
+      "pricePerHour": 280000,
+      "slotDurationMinutes": 60,
+      "openingTime": "07:00",
+      "closingTime": "23:00",
+      "images": [],
+      "amenities": [
+        "Parking",
+        "Locker",
+        "Lighting",
+        "Cafe"
+      ],
+      "status": "ACTIVE",
+      "isApproved": false
+    },
+    {
+      "_id": {
+        "$oid": "68f100000000000000000008"
+      },
+      "owner": {
+        "$oid": "68f000000000000000000002"
+      },
+      "name": "SUNDAY Basketball Court",
+      "description": "Sân bóng rổ ngoài trời dành cho pickup game.",
+      "sportType": "BASKETBALL",
+      "address": "8 Hoang Quoc Viet, Cau Giay, Ha Noi",
+      "pricePerHour": 180000,
+      "slotDurationMinutes": 60,
+      "openingTime": "06:00",
+      "closingTime": "22:00",
+      "images": [],
+      "amenities": [
+        "Parking",
+        "Lighting",
+        "Water"
+      ],
+      "status": "ACTIVE",
+      "isApproved": true
+    }
+  ],
+  "bookings": [
+    {
+      "_id": {
+        "$oid": "68f200000000000000000001"
+      },
+      "user": {
+        "$oid": "68f000000000000000000004"
+      },
+      "court": {
+        "$oid": "68f100000000000000000001"
+      },
+      "bookingDate": "2026-10-05",
+      "startTime": "18:00",
+      "endTime": "19:00",
+      "price": 150000,
+      "status": "PENDING",
+      "paymentStatus": "UNPAID"
+    },
+    {
+      "_id": {
+        "$oid": "68f200000000000000000002"
+      },
+      "user": {
+        "$oid": "68f000000000000000000005"
+      },
+      "court": {
+        "$oid": "68f100000000000000000002"
+      },
+      "bookingDate": "2026-10-06",
+      "startTime": "19:00",
+      "endTime": "20:00",
+      "price": 130000,
+      "status": "CONFIRMED",
+      "paymentStatus": "PAID"
+    },
+    {
+      "_id": {
+        "$oid": "68f200000000000000000003"
+      },
+      "user": {
+        "$oid": "68f000000000000000000006"
+      },
+      "court": {
+        "$oid": "68f100000000000000000004"
+      },
+      "bookingDate": "2026-10-07",
+      "startTime": "20:00",
+      "endTime": "21:00",
+      "price": 500000,
+      "status": "COMPLETED",
+      "paymentStatus": "PAID"
+    },
+    {
+      "_id": {
+        "$oid": "68f200000000000000000004"
+      },
+      "user": {
+        "$oid": "68f000000000000000000007"
+      },
+      "court": {
+        "$oid": "68f100000000000000000006"
+      },
+      "bookingDate": "2026-10-08",
+      "startTime": "17:00",
+      "endTime": "18:00",
+      "price": 220000,
+      "status": "CANCELLED",
+      "paymentStatus": "REFUNDED"
+    },
+    {
+      "_id": {
+        "$oid": "68f200000000000000000005"
+      },
+      "user": {
+        "$oid": "68f000000000000000000008"
+      },
+      "court": {
+        "$oid": "68f100000000000000000008"
+      },
+      "bookingDate": "2026-10-09",
+      "startTime": "18:00",
+      "endTime": "19:00",
+      "price": 180000,
+      "status": "CONFIRMED",
+      "paymentStatus": "PAID"
+    }
+  ],
+  "payments": [
+    {
+      "_id": {
+        "$oid": "68f300000000000000000001"
+      },
+      "booking": {
+        "$oid": "68f200000000000000000002"
+      },
+      "user": {
+        "$oid": "68f000000000000000000005"
+      },
+      "amount": 130000,
+      "method": "VNPAY",
+      "status": "PAID",
+      "transactionRef": "SEED-TXN-0002",
+      "transactionId": "SEED-VNPAY-0002",
+      "paidAt": {
+        "$date": "2026-10-02T08:00:00.000Z"
+      },
+      "refundedAt": null,
+      "gatewayResponse": {
+        "seed": true
+      }
+    },
+    {
+      "_id": {
+        "$oid": "68f300000000000000000002"
+      },
+      "booking": {
+        "$oid": "68f200000000000000000005"
+      },
+      "user": {
+        "$oid": "68f000000000000000000008"
+      },
+      "amount": 180000,
+      "method": "VNPAY",
+      "status": "PAID",
+      "transactionRef": "SEED-TXN-0005",
+      "transactionId": "SEED-VNPAY-0005",
+      "paidAt": {
+        "$date": "2026-10-02T08:10:00.000Z"
+      },
+      "refundedAt": null,
+      "gatewayResponse": {
+        "seed": true
+      }
+    }
+  ]
+}

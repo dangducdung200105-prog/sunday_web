@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getCourtById } from "../../services/courtService";
 import { getCourtAvailability } from "../../services/availabilityService";
 import { createBooking } from "../../services/bookingService";
+import { createPayment } from "../../services/paymentService";
 
 import { useAuth } from "../../context/AuthContext";
 
@@ -104,9 +105,7 @@ const CourtDetail = () => {
   // =========================
 
   const handleBooking = async () => {
-    if (!selectedSlot) {
-      return;
-    }
+    if (!selectedSlot) return;
 
     if (!isAuthenticated) {
       navigate("/login");
@@ -124,20 +123,22 @@ const CourtDetail = () => {
         endTime: selectedSlot.endTime,
       });
 
-      console.log("Booking created:", result.data.booking);
+      const booking = result.data.booking;
 
-      alert("Đặt sân thành công!");
+      const paymentResult = await createPayment({
+        bookingId: booking._id,
+        method: "VNPAY",
+      });
 
-      setSelectedSlot(null);
-
-      // Refresh availability
-      const availabilityResult = await getCourtAvailability(id, selectedDate);
-
-      setSlots(availabilityResult.data.slots);
+      window.location.href = paymentResult.data.paymentUrl;
     } catch (error) {
-      console.error(error);
+      console.log("STATUS:", error.response?.status);
+      console.log("DATA:", error.response?.data);
+      console.log("ERROR:", error);
 
-      setBookingError(error.response?.data?.message || "Không thể đặt sân");
+      setBookingError(
+        error.response?.data?.message || "Không thể thực hiện thanh toán",
+      );
     } finally {
       setBookingLoading(false);
     }
