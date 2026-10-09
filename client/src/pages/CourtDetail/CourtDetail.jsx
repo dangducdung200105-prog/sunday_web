@@ -5,13 +5,14 @@ import { getCourtById } from "../../services/courtService";
 import { getCourtAvailability } from "../../services/availabilityService";
 import { createBooking } from "../../services/bookingService";
 import { createPayment } from "../../services/paymentService";
-
+import "./CourtDetail.css";
 import { useAuth } from "../../context/AuthContext";
 
 import CourtInfo from "../../components/court/CourtInfo";
 import DatePicker from "../../components/booking/DatePicker";
 import SlotGrid from "../../components/booking/SlotGrid";
 import BookingSummary from "../../components/booking/BookingSummary";
+import CourtMap from "../../components/map/CourtMap";
 
 const CourtDetail = () => {
   const { id } = useParams();
@@ -179,7 +180,40 @@ const CourtDetail = () => {
       {/* COURT INFO */}
 
       <CourtInfo court={court} />
+      <section className="court-detail-map-section">
+        <div className="section-heading">
+          <div>
+            <span>VỊ TRÍ</span>
 
+            <h2>Tìm sân trên bản đồ</h2>
+          </div>
+        </div>
+
+        <CourtMap
+          latitude={court.location?.latitude}
+          longitude={court.location?.longitude}
+          courtName={court.name}
+        />
+
+        <div className="court-address-row">
+          <div>
+            <strong>Địa chỉ sân</strong>
+
+            <p>{court.address}</p>
+          </div>
+
+          {court.location?.latitude && court.location?.longitude && (
+            <a
+              href={`https://www.google.com/maps/dir/?api=1&destination=${court.location.latitude},${court.location.longitude}`}
+              target="_blank"
+              rel="noreferrer"
+              className="direction-button"
+            >
+              Chỉ đường →
+            </a>
+          )}
+        </div>
+      </section>
       {/* BOOKING */}
 
       <div className="booking-section">

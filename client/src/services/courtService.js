@@ -35,3 +35,15 @@ export const deleteCourt = async (courtId) => {
 
   return response.data;
 };
+
+export const uploadCourtImages = async (imageFiles) => {
+  const formData = new FormData();
+
+  imageFiles.forEach((file) => {
+    formData.append("images", file);
+  });
+
+  const response = await api.post("/courts/upload-images", formData);
+
+  return response.data;
+};

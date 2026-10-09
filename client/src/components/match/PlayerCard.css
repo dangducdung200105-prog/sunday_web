@@ -1,0 +1,272 @@
+.player-card {
+  overflow: hidden;
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid #e3e8e5;
+  border-radius: 24px;
+  box-shadow: 0 16px 45px rgba(20, 50, 35, 0.09);
+}
+
+/* =========================
+   COVER
+========================= */
+
+.player-card__cover {
+  position: relative;
+  height: 125px;
+  background: linear-gradient(135deg, #e9f7ef 0%, #f4faf6 55%, #ffffff 100%);
+}
+
+.player-card__cover-pattern {
+  position: absolute;
+  inset: 0;
+  opacity: 0.45;
+  background-image: linear-gradient(
+    135deg,
+    transparent 45%,
+    rgba(22, 131, 75, 0.08) 45%,
+    rgba(22, 131, 75, 0.08) 46%,
+    transparent 46%
+  );
+  background-size: 30px 30px;
+}
+
+/* =========================
+   AVATAR
+========================= */
+
+.player-card__avatar {
+  position: absolute;
+  left: 28px;
+  bottom: -42px;
+
+  width: 84px;
+  height: 84px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+
+  border: 5px solid #ffffff;
+  border-radius: 50%;
+
+  background: #dff3e7;
+  color: #16834b;
+
+  font-size: 30px;
+  font-weight: 800;
+
+  box-shadow: 0 5px 18px rgba(20, 50, 35, 0.12);
+}
+
+.player-card__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* =========================
+   BODY
+========================= */
+
+.player-card__body {
+  padding: 58px 28px 28px;
+}
+
+.player-card__identity {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.player-card__identity h2 {
+  margin: 0 0 6px;
+
+  color: #17231d;
+
+  font-size: 25px;
+  font-weight: 750;
+  letter-spacing: -0.03em;
+}
+
+.player-location {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  margin: 0;
+
+  color: #737c76;
+  font-size: 14px;
+}
+
+.player-location span {
+  color: #16834b;
+  font-size: 17px;
+}
+
+/* =========================
+   STATUS
+========================= */
+
+.available-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  flex-shrink: 0;
+
+  padding: 7px 10px;
+
+  border: 1px solid #d8eddf;
+  border-radius: 999px;
+
+  background: #f1faf4;
+  color: #16834b;
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.available-badge i {
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: #20a35d;
+}
+
+/* =========================
+   SECTIONS
+========================= */
+
+.player-section {
+  margin-top: 24px;
+}
+
+.player-section__title {
+  margin-bottom: 10px;
+
+  color: #7b847e;
+
+  font-size: 11px;
+  font-weight: 800;
+
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* =========================
+   SPORT
+========================= */
+
+.sport-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.sport-tag {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 9px 12px;
+
+  border: 1px solid #dcece2;
+  border-radius: 10px;
+
+  background: #f3faf5;
+
+  color: #176d42;
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.sport-tag small {
+  padding-left: 8px;
+
+  border-left: 1px solid #c7dfd0;
+
+  color: #718078;
+
+  font-size: 10px;
+  font-weight: 600;
+}
+
+/* =========================
+   TIME
+========================= */
+
+.time-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.time-list span {
+  padding: 7px 10px;
+
+  border-radius: 8px;
+
+  background: #f5f6f6;
+
+  color: #5e6761;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* =========================
+   BIO
+========================= */
+
+.player-bio {
+  margin: 0;
+
+  color: #59635d;
+
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+  .player-card {
+    border-radius: 20px;
+  }
+
+  .player-card__cover {
+    height: 105px;
+  }
+
+  .player-card__avatar {
+    left: 20px;
+    bottom: -36px;
+
+    width: 72px;
+    height: 72px;
+
+    font-size: 25px;
+  }
+
+  .player-card__body {
+    padding: 50px 20px 22px;
+  }
+
+  .player-card__identity {
+    flex-direction: column;
+  }
+
+  .player-card__identity h2 {
+    font-size: 22px;
+  }
+}

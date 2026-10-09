@@ -14,6 +14,11 @@ import OwnerBookings from "../pages/Owner/OwnerBookings";
 import PaymentResult from "../pages/Payment/PaymentResult";
 import BookingDetail from "../pages/Booking/BookingDetail";
 import OwnerRoute from "./OwnerRoute";
+import Match from "../pages/Match/Match";
+import Matches from "../pages/Matches/Matches";
+import VerifyEmail from "../pages/VerifyEmail/VerifyEmail";
+import ForgotPassword from "../pages/ForgotPassword/ForgotPassword";
+import ResetPassword from "../pages/ResetPassword/ResetPassword";
 // import AdminLayout from "../pages/Admin/AdminLayout";
 // import AdminDashboard from "../pages/Admin/AdminDashboard";
 // import AdminUsers from "../pages/Admin/AdminUsers";
@@ -29,11 +34,17 @@ const AppRoutes = () => {
       <Route path="/courts/:id" element={<CourtDetail />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
-
+      <Route path="/verify-email" element={<VerifyEmail />} />
       <Route element={<ProtectedRoute />}>
-        <Route path="/my-bookings" element={<MyBookings />} />
+        <Route path="/match" element={<Match />} />
+        <Route path="/matches" element={<Matches />} />
       </Route>
+      {/* <Route element={<ProtectedRoute />}>
+        <Route path="/my-bookings" element={<MyBookings />} />
+      </Route> */}
+      <Route path="/forgot-password" element={<ForgotPassword />} />
 
+      <Route path="/reset-password" element={<ResetPassword />} />
       <Route element={<OwnerRoute />}>
         <Route path="/owner" element={<OwnerDashboard />} />
 

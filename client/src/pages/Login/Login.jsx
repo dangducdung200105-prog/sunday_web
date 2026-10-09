@@ -1,10 +1,15 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { Link } from "react-router-dom";
 import { loginUser } from "../../services/authService";
 import { useAuth } from "../../context/AuthContext";
 
+import TurnstileCaptcha from "../../components/common/TurnstileCaptcha";
+import "./Login.css";
+
 const Login = () => {
+  const [captchaToken, setCaptchaToken] = useState("");
+  const [captchaVersion, setCaptchaVersion] = useState(0);
   const navigate = useNavigate();
   const { login } = useAuth();
 
@@ -31,8 +36,11 @@ const Login = () => {
     try {
       setLoading(true);
       setError("");
-
-      const result = await loginUser(formData);
+      if (!captchaToken) {
+        setError("Vui lòng hoàn thành CAPTCHA.");
+        return;
+      }
+      const result = await loginUser({ ...formData, captchaToken });
 
       const { user, token } = result.data;
 
@@ -45,6 +53,8 @@ const Login = () => {
       setError(error.response?.data?.message || "Đăng nhập thất bại");
     } finally {
       setLoading(false);
+      setCaptchaToken("");
+      setCaptchaVersion((version) => version + 1);
     }
   };
 
@@ -74,7 +84,15 @@ const Login = () => {
           onChange={handleChange}
           required
         />
+        <TurnstileCaptcha
+          key={captchaVersion}
+          action="login"
+          onVerify={setCaptchaToken}
+        />
 
+        <div className="forgot-password-link">
+          <Link to="/forgot-password">Quên mật khẩu?</Link>
+        </div>
         <button type="submit" disabled={loading}>
           {loading ? "Đang đăng nhập..." : "Đăng nhập"}
         </button>

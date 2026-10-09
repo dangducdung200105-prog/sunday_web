@@ -11,6 +11,8 @@ const {
 
 const authMiddleware = require("../middlewares/authMiddleware");
 const roleMiddleware = require("../middlewares/roleMiddleware");
+const courtImageUpload = require("../middlewares/courtImageUpload");
+const { uploadCourtImages } = require("../controllers/courtImageController");
 
 const router = express.Router();
 
@@ -27,5 +29,14 @@ router.post("/", authMiddleware, roleMiddleware("OWNER"), createCourt);
 router.put("/:id", authMiddleware, roleMiddleware("OWNER"), updateCourt);
 
 router.delete("/:id", authMiddleware, roleMiddleware("OWNER"), deleteCourt);
+
+// OWNER - Upload court images
+router.post(
+  "/upload-images",
+  authMiddleware,
+  roleMiddleware("OWNER"),
+  courtImageUpload.array("images", 5),
+  uploadCourtImages,
+);
 
 module.exports = router;
