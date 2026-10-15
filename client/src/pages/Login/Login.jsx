@@ -38,7 +38,13 @@ const Login = () => {
 
       login(user, token);
 
-      navigate("/");
+      if (user.role === "ADMIN") {
+        navigate("/admin");
+      } else if (user.role === "OWNER") {
+        navigate("/owner");
+      } else {
+        navigate("/");
+      }
     } catch (error) {
       console.error(error);
 
