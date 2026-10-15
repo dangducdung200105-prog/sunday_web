@@ -54,6 +54,13 @@ const Navbar = () => {
               <span>Owner</span>
             </NavLink>
           )}
+
+          {user?.role === "ADMIN" && (
+            <NavLink to="/admin" className={navClass} onClick={closeMenu}>
+              <span>Admin</span>
+            </NavLink>
+          )}
+          
         </nav>
 
         <div className="navbar-actions">

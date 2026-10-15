@@ -19,12 +19,12 @@ import Matches from "../pages/Matches/Matches";
 import VerifyEmail from "../pages/VerifyEmail/VerifyEmail";
 import ForgotPassword from "../pages/ForgotPassword/ForgotPassword";
 import ResetPassword from "../pages/ResetPassword/ResetPassword";
-// import AdminLayout from "../pages/Admin/AdminLayout";
-// import AdminDashboard from "../pages/Admin/AdminDashboard";
-// import AdminUsers from "../pages/Admin/AdminUsers";
-// import AdminOwners from "../pages/Admin/AdminOwners";
-// import AdminCourts from "../pages/Admin/AdminCourts";
-// import AdminBookings from "../pages/Admin/AdminBookings";
+import AdminLayout from "../pages/Admin/AdminLayout";
+import AdminDashboard from "../pages/Admin/AdminDashboard";
+import AdminUsers from "../pages/Admin/AdminUsers";
+import AdminOwners from "../pages/Admin/AdminOwners";
+import AdminCourts from "../pages/Admin/AdminCourts";
+import AdminBookings from "../pages/Admin/AdminBookings";
 
 const AppRoutes = () => {
   return (
@@ -41,37 +41,30 @@ const AppRoutes = () => {
       </Route>
       {/* <Route element={<ProtectedRoute />}>
         <Route path="/my-bookings" element={<MyBookings />} />
+        <Route path="/bookings/:id" element={<BookingDetail />} />
       </Route> */}
       <Route path="/forgot-password" element={<ForgotPassword />} />
 
       <Route path="/reset-password" element={<ResetPassword />} />
       <Route element={<OwnerRoute />}>
         <Route path="/owner" element={<OwnerDashboard />} />
-
         <Route path="/owner/courts" element={<MyCourts />} />
-
         <Route path="/owner/courts/create" element={<CourtForm />} />
-
         <Route path="/owner/courts/:id/edit" element={<CourtForm />} />
-
         <Route path="/owner/bookings" element={<OwnerBookings />} />
       </Route>
 
-      <Route element={<ProtectedRoute />}>
-        <Route path="/my-bookings" element={<MyBookings />} />
-        <Route path="/bookings/:id" element={<BookingDetail />} />
-      </Route>
-
       <Route path="/payment-result" element={<PaymentResult />} />
-      {/* <Route element={<ProtectedRoute allowedRoles={["ADMIN"]} />}>
+
+      <Route element={<ProtectedRoute allowedRoles={["ADMIN"]} />}>
         <Route path="/admin" element={<AdminLayout />}>
           <Route index element={<AdminDashboard />} />
           <Route path="users" element={<AdminUsers />} />
-          <Route path="admin/owners" element={<AdminOwners />} />
+          <Route path="owners" element={<AdminOwners />} />
           <Route path="courts" element={<AdminCourts />} />
           <Route path="bookings" element={<AdminBookings />} />
         </Route>
-      </Route> */}
+      </Route>
     </Routes>
   );
 };
