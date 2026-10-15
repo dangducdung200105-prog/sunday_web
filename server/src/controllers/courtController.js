@@ -15,6 +15,7 @@ const createCourt = async (req, res) => {
       closingTime,
       images,
       amenities,
+      location,
     } = req.body;
 
     if (
@@ -42,6 +43,7 @@ const createCourt = async (req, res) => {
       openingTime,
       closingTime,
       images,
+      location,
       amenities,
     });
 
@@ -144,6 +146,7 @@ const updateCourt = async (req, res) => {
       sportType,
       address,
       pricePerHour,
+      location,
       openingTime,
       closingTime,
       images,
@@ -155,6 +158,7 @@ const updateCourt = async (req, res) => {
     if (description !== undefined) court.description = description;
     if (sportType !== undefined) court.sportType = sportType;
     if (address !== undefined) court.address = address;
+    if (location !== undefined) court.location = location;
     if (pricePerHour !== undefined) court.pricePerHour = pricePerHour;
     if (openingTime !== undefined) court.openingTime = openingTime;
     if (closingTime !== undefined) court.closingTime = closingTime;

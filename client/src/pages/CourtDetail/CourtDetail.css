@@ -1,0 +1,97 @@
+.court-detail-map-section {
+  margin-top: 40px;
+}
+
+.section-heading {
+  margin-bottom: 16px;
+}
+
+.section-heading span {
+  color: #16834b;
+
+  font-size: 10px;
+  font-weight: 800;
+
+  letter-spacing: 0.12em;
+}
+
+.section-heading h2 {
+  margin: 6px 0 0;
+
+  color: #17231d;
+
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.court-address-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  margin-top: 14px;
+  padding: 16px 18px;
+
+  border: 1px solid #e2e8e4;
+  border-radius: 13px;
+
+  background: #ffffff;
+}
+
+.court-address-row strong {
+  color: #27332c;
+
+  font-size: 13px;
+}
+
+.court-address-row p {
+  margin: 5px 0 0;
+
+  color: #707a74;
+
+  font-size: 13px;
+}
+
+.direction-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 40px;
+
+  padding: 0 15px;
+
+  border-radius: 9px;
+
+  background: #16834b;
+
+  color: #ffffff;
+
+  font-size: 12px;
+  font-weight: 800;
+
+  text-decoration: none;
+
+  white-space: nowrap;
+}
+
+.direction-button:hover {
+  background: #126d3f;
+}
+
+@media (max-width: 600px) {
+  .court-address-row {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .direction-button {
+    width: 100%;
+  }
+
+  .court-map {
+    height: 280px;
+  }
+}

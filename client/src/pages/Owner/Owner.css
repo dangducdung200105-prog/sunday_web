@@ -809,3 +809,44 @@
     width: 100%;
   }
 }
+
+.court-image-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 16px;
+  margin: 16px 0;
+}
+
+.court-image-preview {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.court-image-preview img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+}
+
+.court-image-preview button {
+  align-self: flex-start;
+  padding: 6px 12px;
+  border: 1px solid #d8d8d8;
+  border-radius: 6px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.court-image-preview button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.court-image-preview small {
+  overflow-wrap: anywhere;
+}

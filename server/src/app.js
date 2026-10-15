@@ -8,6 +8,8 @@ const availabilityRoutes = require("./routes/availabilityRoutes");
 const bookingRoutes = require("./routes/bookingRoutes");
 const paymentRoutes = require("./routes/paymentRoutes");
 const adminRoutes = require("./routes/adminRoutes");
+const playerProfileRoutes = require("./routes/playerProfileRoutes");
+const matchRoutes = require("./routes/matchRoutes");
 const app = express();
 
 app.use(cors());
@@ -27,4 +29,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/courts", courtRoutes);
 app.use("/api/bookings", bookingRoutes);
 app.use("/api/admin", adminRoutes);
+app.use("/api/player-profiles", playerProfileRoutes);
+
+app.use("/api/match", matchRoutes);
 module.exports = app;

@@ -41,6 +41,14 @@ const Navbar = () => {
             </NavLink>
           )}
 
+          <NavLink to="/match" className={navClass} onClick={closeMenu}>
+            <span>Tìm bạn chơi</span>
+          </NavLink>
+
+          <NavLink to="/matches" className={navClass} onClick={closeMenu}>
+            <span>Bạn chơi của tôi</span>
+          </NavLink>
+
           {user?.role === "OWNER" && (
             <NavLink to="/owner" className={navClass} onClick={closeMenu}>
               <span>Owner</span>
