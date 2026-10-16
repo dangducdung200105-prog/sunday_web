@@ -157,7 +157,7 @@ const CourtForm = () => {
 
       let uploadedImageUrls = [];
 
-      // Chỉ upload khi có ảnh mới được chọn
+      // Chỉ tải lên khi có ảnh mới được chọn
       if (selectedFiles.length > 0) {
         const uploadResult = await uploadCourtImages(selectedFiles);
 
@@ -216,7 +216,7 @@ const CourtForm = () => {
   return (
     <div className="owner-form-page owner-shell page-container">
       <div className="owner-form-hero">
-        <span>SUNDAY OWNER</span>
+        <span>CHỦ SÂN SUNDAY</span>
 
         <h1>{isEditMode ? "Chỉnh sửa sân" : "Thêm sân mới"}</h1>
 
@@ -251,12 +251,12 @@ const CourtForm = () => {
               value={formData.sportType}
               onChange={handleChange}
             >
-              <option value="FOOTBALL">Football</option>
-              <option value="BADMINTON">Badminton</option>
-              <option value="TENNIS">Tennis</option>
-              <option value="BASKETBALL">Basketball</option>
-              <option value="VOLLEYBALL">Volleyball</option>
-              <option value="OTHER">Other</option>
+              <option value="FOOTBALL">Bóng đá</option>
+              <option value="BADMINTON">Cầu lông</option>
+              <option value="TENNIS">Quần vợt</option>
+              <option value="BASKETBALL">Bóng rổ</option>
+              <option value="VOLLEYBALL">Bóng chuyền</option>
+              <option value="OTHER">Khác</option>
             </select>
           </div>
 
@@ -301,7 +301,7 @@ const CourtForm = () => {
             </div>
 
             <div className="form-group">
-              <label>Thời lượng slot</label>
+              <label>Thời lượng khung giờ</label>
               <select
                 name="slotDurationMinutes"
                 value={formData.slotDurationMinutes}
@@ -393,7 +393,7 @@ const CourtForm = () => {
                     Bỏ chọn
                   </button>
 
-                  <small>Ảnh mới, chưa upload</small>
+                  <small>Ảnh mới, chưa tải lên</small>
                 </div>
               ))}
             </div>
@@ -410,9 +410,9 @@ const CourtForm = () => {
               name="amenities"
               value={formData.amenities}
               onChange={handleChange}
-              placeholder="Wifi, Parking, WC"
+              placeholder="Wi-Fi, Bãi đỗ xe, Nhà vệ sinh"
             />
-            <small>Ví dụ: Wifi, Parking, WC</small>
+            <small>Ví dụ: Wi-Fi, bãi đỗ xe, nhà vệ sinh</small>
           </div>
         </div>
 
@@ -438,8 +438,8 @@ const CourtForm = () => {
           {formData.location.latitude !== null &&
             formData.location.longitude !== null && (
               <div className="coordinates-preview">
-                <span>Latitude: {formData.location.latitude.toFixed(6)}</span>
-                <span>Longitude: {formData.location.longitude.toFixed(6)}</span>
+                <span>Vĩ độ: {formData.location.latitude.toFixed(6)}</span>
+                <span>Kinh độ: {formData.location.longitude.toFixed(6)}</span>
               </div>
             )}
         </div>
@@ -461,7 +461,7 @@ const CourtForm = () => {
           >
             {loading
               ? selectedFiles.length > 0
-                ? "Đang upload ảnh và lưu..."
+                ? "Đang tải ảnh lên và lưu..."
                 : "Đang lưu..."
               : isEditMode
                 ? "Lưu thay đổi"

@@ -5,6 +5,7 @@ import {
   approveCourt,
   rejectCourt,
 } from "../../services/adminService";
+import { getCourtStatusLabel, getSportLabel } from "../../utils/displayLabels";
 
 const FILTERS = [
   { label: "Tất cả", value: "" },
@@ -132,7 +133,7 @@ const AdminCourts = () => {
                   <tr key={court._id}>
                     <td>{court.name}</td>
                     <td>{court.owner?.name || "-"}</td>
-                    <td>{court.sportType}</td>
+                    <td>{getSportLabel(court.sportType)}</td>
                     <td>{court.address}</td>
                     <td>{court.pricePerHour.toLocaleString("vi-VN")}đ</td>
                     <td>
@@ -142,7 +143,7 @@ const AdminCourts = () => {
                         {court.isApproved ? "Đã duyệt" : "Chờ duyệt"}
                       </span>
                     </td>
-                    <td>{court.status}</td>
+                    <td>{getCourtStatusLabel(court.status)}</td>
                     <td className="admin-table-actions">
                       {!court.isApproved && (
                         <button onClick={() => handleApprove(court._id)}>

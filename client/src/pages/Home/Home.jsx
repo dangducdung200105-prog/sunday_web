@@ -2,15 +2,15 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Home.css";
 
 const sports = [
-  { name: "Football", icon: "⚽", type: "FOOTBALL" },
-  { name: "Badminton", icon: "🏸", type: "BADMINTON" },
-  { name: "Tennis", icon: "🎾", type: "TENNIS" },
-  { name: "Basketball", icon: "🏀", type: "BASKETBALL" },
+  { name: "Bóng đá", icon: "⚽", type: "FOOTBALL" },
+  { name: "Cầu lông", icon: "🏸", type: "BADMINTON" },
+  { name: "Quần vợt", icon: "🎾", type: "TENNIS" },
+  { name: "Bóng rổ", icon: "🏀", type: "BASKETBALL" },
 ];
 
 const STATS = [
   { value: "< 60s", label: "Thời gian đặt sân trung bình" },
-  { value: "Real-time", label: "Cập nhật lịch trống tức thì" },
+  { value: "Theo thời gian thực", label: "Cập nhật lịch trống tức thì" },
   { value: "4+", label: "Loại hình thể thao" },
 ];
 
@@ -22,7 +22,7 @@ const PLAYER_FEATURES = [
   },
   {
     icon: "🕒",
-    title: "Lịch trống real-time",
+    title: "Lịch trống theo thời gian thực",
     desc: "Xem chính xác khung giờ còn trống, không lo trùng lịch.",
   },
   {
@@ -38,8 +38,8 @@ const PLAYER_FEATURES = [
 ];
 
 const OWNER_FEATURES = [
-  "Dashboard quản lý toàn diện cho chủ sân",
-  "Thêm / sửa / xoá sân và upload ảnh",
+  "Tổng quan quản lý toàn diện cho chủ sân",
+  "Thêm / sửa / xóa sân và tải ảnh lên",
   "Thiết lập giá và khung giờ linh hoạt",
   "Xác nhận, huỷ đơn và theo dõi doanh thu",
 ];
@@ -59,42 +59,42 @@ const Home = () => {
           <div className="hero-content">
             <span className="hero-badge">
               <span className="hero-badge-dot" />
-              YOUR GAME STARTS HERE
+            BẮT ĐẦU TRẬN ĐẤU CỦA BẠN
             </span>
 
             <h1>
-              Find your court.
+              Tìm sân phù hợp.
               <br />
-              <span>Play your game.</span>
+              <span>Sẵn sàng ra sân.</span>
             </h1>
 
             <p>
-              Discover and book sports courts around you. Simple booking,
-              flexible time, better games.
+              Khám phá và đặt sân thể thao quanh bạn. Đặt sân dễ dàng,
+              thời gian linh hoạt, cuộc chơi trọn vẹn.
             </p>
 
             <div className="hero-actions">
               <Link to="/courts" className="home-btn home-btn-primary">
-                Find a Court <span>→</span>
+                Tìm sân <span>→</span>
               </Link>
 
               <a href="#how-it-works" className="home-btn home-btn-secondary">
-                How it works
+                Cách thức hoạt động
               </a>
             </div>
 
             <div className="hero-stats">
               <div>
                 <strong>100+</strong>
-                <span>Courts</span>
+                <span>Sân thể thao</span>
               </div>
               <div>
                 <strong>5+</strong>
-                <span>Sports</span>
+                <span>Môn thể thao</span>
               </div>
               <div>
                 <strong>24/7</strong>
-                <span>Booking</span>
+                <span>Đặt sân</span>
               </div>
             </div>
           </div>
@@ -104,13 +104,13 @@ const Home = () => {
               <div className="hero-card-image">
                 <div className="hero-card-overlay" />
                 <div className="hero-card-content">
-                  <span className="hero-card-badge">Available today</span>
-                  <h3>Premium Sports Arena</h3>
-                  <p>Hanoi · Badminton</p>
+                  <span className="hero-card-badge">Còn sân hôm nay</span>
+                  <h3>Khu liên hợp thể thao</h3>
+                  <p>Hà Nội · Cầu lông</p>
 
                   <div className="hero-card-bottom">
                     <strong>
-                      150,000₫ <small>/ hour</small>
+                      150,000₫ <small>/ giờ</small>
                     </strong>
                     <span className="hero-rating">★ 4.9</span>
                   </div>
@@ -121,15 +121,15 @@ const Home = () => {
             <div className="floating-card floating-card-top">
               <span className="floating-icon">✓</span>
               <div>
-                <strong>Easy booking</strong>
-                <small>Book in seconds</small>
+                <strong>Đặt sân dễ dàng</strong>
+                <small>Chỉ trong vài giây</small>
               </div>
             </div>
 
             <div className="floating-card floating-card-bottom">
               <strong>4.9</strong>
               <span>★</span>
-              <small>Player rating</small>
+              <small>Đánh giá người chơi</small>
             </div>
           </div>
         </div>
@@ -140,15 +140,15 @@ const Home = () => {
         <div className="home-container">
           <div className="section-header">
             <div>
-              <span className="eyebrow">EXPLORE</span>
-              <h2 className="section-title">Choose your sport</h2>
+              <span className="eyebrow">KHÁM PHÁ</span>
+              <h2 className="section-title">Chọn môn thể thao</h2>
               <p className="section-description">
-                Find a court for your favorite game.
+                Tìm sân cho môn thể thao yêu thích của bạn.
               </p>
             </div>
 
             <Link to="/courts" className="section-link">
-              View all →
+              Xem tất cả →
             </Link>
           </div>
 
@@ -174,26 +174,26 @@ const Home = () => {
         <div className="home-container">
           <div className="section-header">
             <div>
-              <span className="eyebrow">SUNDAY PICKS</span>
-              <h2 className="section-title">Courts worth playing</h2>
+              <span className="eyebrow">SUNDAY GỢI Ý</span>
+              <h2 className="section-title">Những sân đáng trải nghiệm</h2>
               <p className="section-description">
-                Popular courts selected for SUNDAY players.
+                Các sân được người chơi SUNDAY yêu thích.
               </p>
             </div>
 
             <Link to="/courts" className="section-link">
-              Explore courts →
+              Khám phá sân →
             </Link>
           </div>
 
           <div className="featured-card">
             <div className="featured-card-icon">🏟️</div>
             <div>
-              <h3>Discover your next game</h3>
-              <p>Browse available courts and find the perfect place to play.</p>
+              <h3>Khám phá cuộc chơi tiếp theo</h3>
+              <p>Tìm sân còn trống và chọn địa điểm phù hợp để ra sân.</p>
             </div>
             <Link to="/courts" className="home-btn home-btn-dark">
-              Browse Courts
+              Xem danh sách sân
             </Link>
           </div>
         </div>
@@ -203,10 +203,10 @@ const Home = () => {
       <section className="home-section how-section" id="how-it-works">
         <div className="home-container">
           <div className="section-heading">
-            <span className="eyebrow">SIMPLE BY DESIGN</span>
-            <h2 className="section-title">Book. Play. Repeat.</h2>
+            <span className="eyebrow">ĐƠN GIẢN, DỄ SỬ DỤNG</span>
+            <h2 className="section-title">Đặt sân. Ra sân. Tận hưởng.</h2>
             <p className="section-description">
-              Everything you need to get on the court.
+              Mọi thứ bạn cần để sẵn sàng cho trận đấu.
             </p>
           </div>
 
@@ -214,22 +214,22 @@ const Home = () => {
             <div className="step">
               <span className="step-number">01</span>
               <div className="step-icon">🔍</div>
-              <h3>Find a court</h3>
-              <p>Search courts by sport, location and availability.</p>
+              <h3>Tìm sân</h3>
+              <p>Tìm sân theo môn thể thao, khu vực và lịch trống.</p>
             </div>
 
             <div className="step">
               <span className="step-number">02</span>
               <div className="step-icon">📅</div>
-              <h3>Pick your slot</h3>
-              <p>Choose a date and time that works for you.</p>
+              <h3>Chọn khung giờ</h3>
+              <p>Chọn ngày và giờ phù hợp với bạn.</p>
             </div>
 
             <div className="step">
               <span className="step-number">03</span>
               <div className="step-icon">🏆</div>
-              <h3>Play your game</h3>
-              <p>Confirm your booking and enjoy the game.</p>
+              <h3>Tận hưởng trận đấu</h3>
+              <p>Xác nhận đặt sân và sẵn sàng ra sân.</p>
             </div>
           </div>
         </div>
@@ -251,7 +251,7 @@ const Home = () => {
       <section className="home-section features-section">
         <div className="home-container">
           <div className="section-heading">
-            <span className="eyebrow">FOR PLAYERS</span>
+            <span className="eyebrow">DÀNH CHO NGƯỜI CHƠI</span>
             <h2 className="section-title">Trải nghiệm đặt sân thông minh</h2>
           </div>
 
@@ -271,7 +271,7 @@ const Home = () => {
       <section className="home-section owner-section">
         <div className="home-container owner-inner">
           <div className="owner-copy">
-            <span className="eyebrow owner-eyebrow">FOR COURT OWNERS</span>
+            <span className="eyebrow owner-eyebrow">DÀNH CHO CHỦ SÂN</span>
             <h2>Quản lý sân dễ dàng hơn.</h2>
             <p>
               Tập trung vào vận hành sân, còn SUNDAY hỗ trợ bạn quản lý lịch đặt
@@ -293,7 +293,7 @@ const Home = () => {
           </div>
 
           <div className="owner-panel">
-            <p className="owner-panel-label">DASHBOARD CHỦ SÂN</p>
+            <p className="owner-panel-label">TỔNG QUAN CHỦ SÂN</p>
             <div className="owner-panel-row">
               <span>Đơn chờ xác nhận</span>
               <strong>12</strong>
@@ -315,13 +315,13 @@ const Home = () => {
         <div className="home-container">
           <div className="cta-card">
             <div>
-              <span className="eyebrow cta-eyebrow">READY TO PLAY?</span>
-              <h2>Your next game is waiting.</h2>
-              <p>Find a court and get on the field today.</p>
+              <span className="eyebrow cta-eyebrow">SẴN SÀNG RA SÂN?</span>
+              <h2>Trận đấu tiếp theo đang chờ bạn.</h2>
+              <p>Tìm sân và bắt đầu cuộc chơi ngay hôm nay.</p>
             </div>
 
             <Link to="/courts" className="home-btn home-btn-white">
-              Find a Court →
+              Tìm sân →
             </Link>
           </div>
         </div>

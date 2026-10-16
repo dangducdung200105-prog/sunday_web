@@ -1,7 +1,9 @@
+import { getSportLabel } from "../../utils/displayLabels";
+
 const CourtInfo = ({ court }) => {
   return (
     <div className="court-detail-info">
-      <span className="court-detail-sport">{court.sportType}</span>
+      <span className="court-detail-sport">{getSportLabel(court.sportType)}</span>
 
       <h1>{court.name}</h1>
 

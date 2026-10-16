@@ -7,7 +7,7 @@ const sports = [
   { value: "", label: "Tất cả môn" },
   { value: "FOOTBALL", label: "Bóng đá" },
   { value: "BADMINTON", label: "Cầu lông" },
-  { value: "TENNIS", label: "Tennis" },
+  { value: "TENNIS", label: "Quần vợt" },
   { value: "BASKETBALL", label: "Bóng rổ" },
   { value: "VOLLEYBALL", label: "Bóng chuyền" },
 ];
@@ -97,7 +97,7 @@ function Match() {
 
         <header className="match-header">
           <div>
-            <span className="match-eyebrow">SUNDAY COMMUNITY</span>
+            <span className="match-eyebrow">CỘNG ĐỒNG SUNDAY</span>
 
             <h1>Tìm người chơi cùng</h1>
 

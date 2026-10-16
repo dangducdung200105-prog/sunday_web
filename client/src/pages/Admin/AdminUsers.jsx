@@ -5,6 +5,7 @@ import {
   updateUserStatus,
   updateUserRole,
 } from "../../services/adminService";
+import { getRoleLabel } from "../../utils/displayLabels";
 
 const ROLES = ["USER", "OWNER", "ADMIN"];
 
@@ -106,7 +107,7 @@ const AdminUsers = () => {
               className={roleFilter === role ? "active" : ""}
               onClick={() => setRoleFilter(role)}
             >
-              {role}
+              {getRoleLabel(role)}
             </button>
           ))}
         </div>
@@ -135,7 +136,7 @@ const AdminUsers = () => {
                 <th>Tên</th>
                 <th>Email</th>
                 <th>SĐT</th>
-                <th>Role</th>
+                <th>Vai trò</th>
                 <th>Trạng thái</th>
                 <th>Hành động</th>
               </tr>
@@ -159,7 +160,7 @@ const AdminUsers = () => {
                       >
                         {ROLES.map((role) => (
                           <option key={role} value={role}>
-                            {role}
+                            {getRoleLabel(role)}
                           </option>
                         ))}
                       </select>

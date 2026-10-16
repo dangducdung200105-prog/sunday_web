@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { getMyCourts, deleteCourt } from "../../services/courtService";
+import { getSportLabel } from "../../utils/displayLabels";
 import "./Owner.css";
 
 const MyCourts = () => {
@@ -67,7 +68,7 @@ const MyCourts = () => {
     <div className="owner-page owner-shell page-container">
       <div className="owner-page-header">
         <div>
-          <span>SUNDAY OWNER</span>
+          <span>CHỦ SÂN SUNDAY</span>
 
           <h1>Quản lý sân</h1>
 
@@ -83,7 +84,7 @@ const MyCourts = () => {
         <div className="owner-empty">
           <h2>Bạn chưa có sân nào</h2>
 
-          <p>Hãy tạo sân đầu tiên để bắt đầu nhận booking.</p>
+          <p>Hãy tạo sân đầu tiên để bắt đầu nhận lịch đặt.</p>
 
           <Link to="/owner/courts/create" className="owner-primary-button">
             Tạo sân đầu tiên
@@ -103,7 +104,7 @@ const MyCourts = () => {
 
               <div className="owner-court-content">
                 <div className="owner-court-top">
-                  <span>{court.sportType}</span>
+                  <span>{getSportLabel(court.sportType)}</span>
 
                   <span
                     className={

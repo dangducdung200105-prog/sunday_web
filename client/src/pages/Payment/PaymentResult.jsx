@@ -13,7 +13,7 @@ const PaymentResult = () => {
 
           <h1>Thanh toán thành công</h1>
 
-          <p>Booking của bạn đã được thanh toán thành công.</p>
+          <p>Lịch đặt sân của bạn đã được thanh toán thành công.</p>
 
           <Link to="/my-bookings" className="primary-button">
             Xem lịch đặt sân

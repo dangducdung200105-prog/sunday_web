@@ -4,6 +4,7 @@ import {
   getAllBookingsAdmin,
   updateBookingStatusAdmin,
 } from "../../services/adminService";
+import { getBookingStatusLabel, getPaymentStatusLabel } from "../../utils/displayLabels";
 
 const STATUSES = ["PENDING", "CONFIRMED", "CANCELLED", "COMPLETED"];
 
@@ -77,7 +78,7 @@ const AdminBookings = () => {
               className={statusFilter === s ? "active" : ""}
               onClick={() => setStatusFilter(s)}
             >
-              {s}
+              {getBookingStatusLabel(s)}
             </button>
           ))}
         </div>
@@ -121,7 +122,7 @@ const AdminBookings = () => {
                       {booking.startTime} - {booking.endTime}
                     </td>
                     <td>{booking.price.toLocaleString("vi-VN")}đ</td>
-                    <td>{booking.paymentStatus}</td>
+                    <td>{getPaymentStatusLabel(booking.paymentStatus)}</td>
                     <td>
                       <select
                         value={booking.status}
@@ -131,7 +132,7 @@ const AdminBookings = () => {
                       >
                         {STATUSES.map((s) => (
                           <option key={s} value={s}>
-                            {s}
+                            {getBookingStatusLabel(s)}
                           </option>
                         ))}
                       </select>

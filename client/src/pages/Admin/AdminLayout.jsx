@@ -8,7 +8,7 @@ const AdminLayout = () => {
 
         <nav className="admin-sidebar-nav">
           <NavLink to="/admin" end>
-            Dashboard
+            Tổng quan
           </NavLink>
 
           <NavLink to="/admin/users">Người dùng</NavLink>

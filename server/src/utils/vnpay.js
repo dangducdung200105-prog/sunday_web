@@ -14,6 +14,9 @@ const sortObject = (obj) => {
 };
 
 const createSecureHash = (params) => {
+  if (!process.env.VNPAY_HASH_SECRET) {
+    throw new Error("Missing VNPay configuration: VNPAY_HASH_SECRET");
+  }
   const sortedParams = sortObject(params);
 
   const signData = qs.stringify(sortedParams, {
@@ -27,7 +30,7 @@ const createSecureHash = (params) => {
 };
 
 const verifySecureHash = (params, receivedHash) => {
-  if (!receivedHash) {
+  if (!receivedHash || !process.env.VNPAY_HASH_SECRET) {
     return false;
   }
 

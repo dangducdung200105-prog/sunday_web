@@ -5,12 +5,12 @@ import CourtCard from "../../components/court/CourtCard";
 import "./Courts.css";
 
 const sportOptions = [
-  { value: "", label: "All sports" },
-  { value: "FOOTBALL", label: "Football" },
-  { value: "BADMINTON", label: "Badminton" },
-  { value: "TENNIS", label: "Tennis" },
-  { value: "BASKETBALL", label: "Basketball" },
-  { value: "VOLLEYBALL", label: "Volleyball" },
+  { value: "", label: "Tất cả môn thể thao" },
+  { value: "FOOTBALL", label: "Bóng đá" },
+  { value: "BADMINTON", label: "Cầu lông" },
+  { value: "TENNIS", label: "Quần vợt" },
+  { value: "BASKETBALL", label: "Bóng rổ" },
+  { value: "VOLLEYBALL", label: "Bóng chuyền" },
 ];
 
 const Courts = () => {
@@ -126,12 +126,12 @@ const Courts = () => {
 
       <section className="courts-header">
         <div className="container">
-          <span className="eyebrow">FIND YOUR GAME</span>
+          <span className="eyebrow">TÌM SÂN PHÙ HỢP</span>
 
-          <h1>Find the perfect court.</h1>
+          <h1>Tìm sân phù hợp với bạn.</h1>
 
           <p>
-            Explore available sports courts and book your next game with SUNDAY.
+            Khám phá các sân thể thao và đặt lịch chơi cùng SUNDAY.
           </p>
 
           {/* Search */}
@@ -141,7 +141,7 @@ const Courts = () => {
 
             <input
               type="text"
-              placeholder="Search by court name, location or sport..."
+              placeholder="Tìm theo tên sân, khu vực hoặc môn thể thao..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
@@ -164,17 +164,17 @@ const Courts = () => {
 
             <aside className="filters">
               <div className="filter-header">
-                <h3>Filters</h3>
+                <h3>Bộ lọc</h3>
 
                 {(sportType || maxPrice || search) && (
-                  <button onClick={handleClearFilters}>Clear</button>
+                  <button onClick={handleClearFilters}>Xóa bộ lọc</button>
                 )}
               </div>
 
               {/* Sport */}
 
               <div className="filter-group">
-                <label>Sport</label>
+                <label>Môn thể thao</label>
 
                 <div className="sport-filter-list">
                   {sportOptions.map((sport) => (
@@ -198,22 +198,22 @@ const Courts = () => {
               {/* Price */}
 
               <div className="filter-group">
-                <label>Maximum price / hour</label>
+                <label>Giá tối đa / giờ</label>
 
                 <select
                   value={maxPrice}
                   onChange={(e) => setMaxPrice(e.target.value)}
                   className="filter-select"
                 >
-                  <option value="">Any price</option>
+                  <option value="">Mọi mức giá</option>
 
-                  <option value="100000">Under 100,000₫</option>
+                  <option value="100000">Dưới 100.000đ</option>
 
-                  <option value="150000">Under 150,000₫</option>
+                  <option value="150000">Dưới 150.000đ</option>
 
-                  <option value="200000">Under 200,000₫</option>
+                  <option value="200000">Dưới 200.000đ</option>
 
-                  <option value="300000">Under 300,000₫</option>
+                  <option value="300000">Dưới 300.000đ</option>
                 </select>
               </div>
             </aside>
@@ -223,7 +223,7 @@ const Courts = () => {
             <div className="courts-results">
               <div className="results-toolbar">
                 <div>
-                  <strong>{filteredCourts.length}</strong> courts found
+                  <strong>{filteredCourts.length}</strong> sân được tìm thấy
                 </div>
 
                 <select
@@ -231,13 +231,13 @@ const Courts = () => {
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
                 >
-                  <option value="default">Recommended</option>
+                  <option value="default">Đề xuất</option>
 
-                  <option value="price-low">Price: Low to High</option>
+                  <option value="price-low">Giá: thấp đến cao</option>
 
-                  <option value="price-high">Price: High to Low</option>
+                  <option value="price-high">Giá: cao đến thấp</option>
 
-                  <option value="name">Name</option>
+                  <option value="name">Tên sân</option>
                 </select>
               </div>
 
@@ -247,7 +247,7 @@ const Courts = () => {
                 <div className="courts-loading">
                   <div className="loading-spinner"></div>
 
-                  <p>Finding courts...</p>
+                  <p>Đang tìm sân...</p>
                 </div>
               )}
 
@@ -257,7 +257,7 @@ const Courts = () => {
                 <div className="courts-error">
                   <div>⚠️</div>
 
-                  <h3>Something went wrong</h3>
+                  <h3>Đã xảy ra lỗi</h3>
 
                   <p>{error}</p>
 
@@ -265,7 +265,7 @@ const Courts = () => {
                     className="btn btn-primary"
                     onClick={() => window.location.reload()}
                   >
-                    Try again
+                    Thử lại
                   </button>
                 </div>
               )}
@@ -276,15 +276,15 @@ const Courts = () => {
                 <div className="courts-empty">
                   <div className="empty-icon">🏟️</div>
 
-                  <h3>No courts found</h3>
+                  <h3>Không tìm thấy sân</h3>
 
-                  <p>Try changing your search or filters.</p>
+                  <p>Hãy thử thay đổi từ khóa hoặc bộ lọc.</p>
 
                   <button
                     className="btn btn-secondary"
                     onClick={handleClearFilters}
                   >
-                    Clear filters
+                    Xóa bộ lọc
                   </button>
                 </div>
               )}

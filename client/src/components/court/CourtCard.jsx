@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { getSportLabel } from "../../utils/displayLabels";
 
 const CourtCard = ({ court }) => {
   return (
@@ -12,7 +13,7 @@ const CourtCard = ({ court }) => {
       </div>
 
       <div className="court-card-content">
-        <span className="court-sport">{court.sportType}</span>
+        <span className="court-sport">{getSportLabel(court.sportType)}</span>
 
         <h3>{court.name}</h3>
 

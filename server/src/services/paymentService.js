@@ -66,7 +66,7 @@ const createPayment = async ({ bookingId, userId, method }) => {
   return payment;
 };
 
-const createVnpayUrl = (payment) => {
+const createVnpayUrl = (payment, ipAddress = "127.0.0.1") => {
   const requiredConfig = [
     "VNPAY_TMN_CODE",
     "VNPAY_PAYMENT_URL",
@@ -93,7 +93,7 @@ const createVnpayUrl = (payment) => {
     vnp_ReturnUrl: process.env.VNPAY_RETURN_URL,
     vnp_CreateDate: formatVnpayDate(now),
     vnp_ExpireDate: formatVnpayDate(new Date(now.getTime() + 15 * 60 * 1000)),
-    vnp_IpAddr: "127.0.0.1",
+    vnp_IpAddr: ipAddress,
   };
   const sortedParams = sortObject(params);
 

@@ -2,12 +2,12 @@ import { Link } from "react-router-dom";
 import "./CourtCard.css";
 
 const sportLabels = {
-  FOOTBALL: "Football",
-  BADMINTON: "Badminton",
-  TENNIS: "Tennis",
-  BASKETBALL: "Basketball",
-  VOLLEYBALL: "Volleyball",
-  OTHER: "Other",
+  FOOTBALL: "Bóng đá",
+  BADMINTON: "Cầu lông",
+  TENNIS: "Quần vợt",
+  BASKETBALL: "Bóng rổ",
+  VOLLEYBALL: "Bóng chuyền",
+  OTHER: "Khác",
 };
 
 const sportIcons = {
@@ -88,11 +88,11 @@ const CourtCard = ({ court }) => {
               {Number(court.pricePerHour).toLocaleString("vi-VN")}₫
             </strong>
 
-            <span>/ hour</span>
+            <span>/ giờ</span>
           </div>
 
           <Link to={`/courts/${court._id}`} className="court-view-button">
-            View court →
+            Xem sân →
           </Link>
         </div>
       </div>

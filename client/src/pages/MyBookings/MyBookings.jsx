@@ -2,6 +2,11 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { getMyBookings, cancelBooking } from "../../services/bookingService";
+import {
+  getBookingStatusLabel,
+  getPaymentStatusLabel,
+  getSportLabel,
+} from "../../utils/displayLabels";
 
 const MyBookings = () => {
   const [bookings, setBookings] = useState([]);
@@ -27,7 +32,7 @@ const MyBookings = () => {
   }, []);
 
   const handleCancel = async (bookingId) => {
-    const confirmed = window.confirm("Bạn có chắc muốn hủy booking này?");
+    const confirmed = window.confirm("Bạn có chắc muốn hủy đơn này?");
 
     if (!confirmed) {
       return;
@@ -79,7 +84,7 @@ const MyBookings = () => {
 
       {bookings.length === 0 ? (
         <div className="empty-bookings">
-          <h2>Chưa có booking nào</h2>
+          <h2>Bạn chưa có lịch đặt sân nào</h2>
 
           <p>Hãy tìm một sân và bắt đầu cuộc chơi.</p>
 
@@ -92,7 +97,7 @@ const MyBookings = () => {
               <div className="booking-main">
                 <div>
                   <span className="booking-sport">
-                    {booking.court?.sportType}
+                    {getSportLabel(booking.court?.sportType)}
                   </span>
 
                   <h2>{booking.court?.name}</h2>
@@ -103,7 +108,7 @@ const MyBookings = () => {
                 <span
                   className={`booking-status ${booking.status.toLowerCase()}`}
                 >
-                  {booking.status}
+                  {getBookingStatusLabel(booking.status)}
                 </span>
               </div>
 
@@ -129,7 +134,7 @@ const MyBookings = () => {
 
                 <div>
                   <span>Thanh toán</span>
-                  <strong>{booking.paymentStatus}</strong>
+                  <strong>{getPaymentStatusLabel(booking.paymentStatus)}</strong>
                 </div>
               </div>
               <Link

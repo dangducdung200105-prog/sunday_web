@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { getBookingById, cancelBooking } from "../../services/bookingService";
+import { getBookingStatusLabel, getPaymentStatusLabel, getSportLabel } from "../../utils/displayLabels";
 import { createPayment } from "../../services/paymentService";
 
 const BookingDetail = () => {
@@ -67,7 +68,7 @@ const BookingDetail = () => {
   };
 
   const handleCancel = async () => {
-    const confirmed = window.confirm("Bạn có chắc muốn hủy booking này?");
+    const confirmed = window.confirm("Bạn có chắc muốn hủy đơn này?");
 
     if (!confirmed) return;
 
@@ -89,7 +90,7 @@ const BookingDetail = () => {
   if (loading) {
     return (
       <div className="page-container">
-        <div className="loading-state">Đang tải booking...</div>
+        <div className="loading-state">Đang tải thông tin đặt sân...</div>
       </div>
     );
   }
@@ -98,7 +99,7 @@ const BookingDetail = () => {
     return (
       <div className="page-container">
         <div className="error-state">
-          <h2>Không thể tải booking</h2>
+          <h2>Không thể tải thông tin đặt sân</h2>
           <p>{error}</p>
 
           <Link to="/my-bookings">Quay lại lịch đặt sân</Link>
@@ -121,7 +122,7 @@ const BookingDetail = () => {
             ← Lịch đặt sân
           </Link>
 
-          <h1>Chi tiết booking</h1>
+          <h1>Chi tiết đặt sân</h1>
 
           <p>Thông tin chi tiết về lịch đặt sân của bạn</p>
         </div>
@@ -139,14 +140,14 @@ const BookingDetail = () => {
             <span
               className={`booking-status status-${booking.status?.toLowerCase()}`}
             >
-              {booking.status}
+              {getBookingStatusLabel(booking.status)}
             </span>
           </div>
 
           <div className="booking-info-grid">
             <div className="booking-info-item">
               <span>Loại sân</span>
-              <strong>{court?.sportType || "-"}</strong>
+              <strong>{getSportLabel(court?.sportType)}</strong>
             </div>
 
             <div className="booking-info-item">
@@ -174,7 +175,7 @@ const BookingDetail = () => {
               <strong
                 className={`payment-status payment-${booking.paymentStatus?.toLowerCase()}`}
               >
-                {booking.paymentStatus}
+                {getPaymentStatusLabel(booking.paymentStatus)}
               </strong>
             </div>
 

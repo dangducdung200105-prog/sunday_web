@@ -28,16 +28,16 @@ const Navbar = () => {
 
         <nav className={`navbar-nav ${menuOpen ? "is-open" : ""}`}>
           <NavLink to="/" end className={navClass} onClick={closeMenu}>
-            <span>Home</span>
+            <span>Trang chủ</span>
           </NavLink>
 
           <NavLink to="/courts" className={navClass} onClick={closeMenu}>
-            <span>Find Courts</span>
+            <span>Tìm sân</span>
           </NavLink>
 
           {isAuthenticated && (
             <NavLink to="/my-bookings" className={navClass} onClick={closeMenu}>
-              <span>My Bookings</span>
+              <span>Lịch đặt sân</span>
             </NavLink>
           )}
 
@@ -51,9 +51,16 @@ const Navbar = () => {
 
           {user?.role === "OWNER" && (
             <NavLink to="/owner" className={navClass} onClick={closeMenu}>
-              <span>Owner</span>
+              <span>Chủ sân</span>
             </NavLink>
           )}
+
+          {user?.role === "ADMIN" && (
+            <NavLink to="/admin" className={navClass} onClick={closeMenu}>
+              <span>Quản trị</span>
+            </NavLink>
+          )}
+          
         </nav>
 
         <div className="navbar-actions">
@@ -64,8 +71,8 @@ const Navbar = () => {
                   {(user?.name || "U").charAt(0).toUpperCase()}
                 </div>
                 <div className="navbar-user-info">
-                  <span className="navbar-user-label">Welcome back</span>
-                  <span className="navbar-user">{user?.name || "User"}</span>
+                  <span className="navbar-user-label">Xin chào</span>
+                  <span className="navbar-user">{user?.name || "Người dùng"}</span>
                 </div>
               </div>
 
@@ -74,17 +81,17 @@ const Navbar = () => {
                 className="navbar-logout"
                 onClick={handleLogout}
               >
-                Logout
+                Đăng xuất
               </button>
             </>
           ) : (
             <>
               <Link to="/login" className="navbar-login">
-                Login
+                Đăng nhập
               </Link>
 
               <Link to="/register" className="navbar-register">
-                Get Started
+                Đăng ký
                 <span>→</span>
               </Link>
             </>
@@ -96,7 +103,7 @@ const Navbar = () => {
           className={`navbar-menu-button ${menuOpen ? "is-open" : ""}`}
           onClick={() => setMenuOpen((open) => !open)}
           aria-label={
-            menuOpen ? "Close navigation menu" : "Open navigation menu"
+            menuOpen ? "Đóng trình đơn" : "Mở trình đơn"
           }
           aria-expanded={menuOpen}
         >

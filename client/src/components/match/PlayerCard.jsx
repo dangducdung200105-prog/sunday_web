@@ -3,7 +3,7 @@ import "./PlayerCard.css";
 const sportLabels = {
   FOOTBALL: "Bóng đá",
   BADMINTON: "Cầu lông",
-  TENNIS: "Tennis",
+  TENNIS: "Quần vợt",
   BASKETBALL: "Bóng rổ",
   VOLLEYBALL: "Bóng chuyền",
   OTHER: "Khác",

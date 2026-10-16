@@ -11,8 +11,21 @@ const adminRoutes = require("./routes/adminRoutes");
 const playerProfileRoutes = require("./routes/playerProfileRoutes");
 const matchRoutes = require("./routes/matchRoutes");
 const app = express();
+app.set("trust proxy", 1);
 
-app.use(cors());
+const allowedOrigins = (process.env.CLIENT_URL || "http://localhost:5173")
+  .split(",")
+  .map((origin) => origin.trim().replace(/\/$/, ""))
+  .filter(Boolean);
+
+app.use(cors({
+  origin(origin, callback) {
+    if (!origin || allowedOrigins.includes(origin.replace(/\/$/, ""))) {
+      return callback(null, true);
+    }
+    return callback(new Error("Origin is not allowed by CORS"));
+  },
+}));
 app.use(express.json());
 
 app.get("/api/health", (req, res) => {

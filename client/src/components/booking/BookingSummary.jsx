@@ -1,4 +1,5 @@
 import { createPayment } from "../../services/paymentService";
+import { getSportLabel } from "../../utils/displayLabels";
 
 const BookingSummary = ({
   court,
@@ -44,7 +45,7 @@ const BookingSummary = ({
 
         <div>
           <strong>{court.name}</strong>
-          <span>{court.sportType}</span>
+          <span>{getSportLabel(court.sportType)}</span>
         </div>
       </div>
 

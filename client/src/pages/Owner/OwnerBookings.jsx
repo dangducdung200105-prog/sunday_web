@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { getOwnerBookings } from "../../services/bookingService";
+import { getBookingStatusLabel, getPaymentStatusLabel, getSportLabel } from "../../utils/displayLabels";
 import "./Owner.css";
 
 const OwnerBookings = () => {
@@ -31,7 +32,7 @@ const OwnerBookings = () => {
   if (loading) {
     return (
       <div className="page-container">
-        <p>Đang tải booking...</p>
+        <p>Đang tải danh sách đặt sân...</p>
       </div>
     );
   }
@@ -48,9 +49,9 @@ const OwnerBookings = () => {
     <div className="owner-page owner-shell page-container">
       <div className="owner-page-header">
         <div>
-          <span>SUNDAY OWNER</span>
+          <span>CHỦ SÂN SUNDAY</span>
 
-          <h1>Booking</h1>
+          <h1>Lượt đặt sân</h1>
 
           <p>Theo dõi các lượt đặt sân từ khách hàng.</p>
         </div>
@@ -58,9 +59,9 @@ const OwnerBookings = () => {
 
       {bookings.length === 0 ? (
         <div className="owner-empty">
-          <h2>Chưa có booking nào</h2>
+          <h2>Chưa có lịch đặt sân nào</h2>
 
-          <p>Khi khách hàng đặt sân, booking sẽ xuất hiện ở đây.</p>
+          <p>Khi khách hàng đặt sân, lịch đặt sẽ xuất hiện ở đây.</p>
         </div>
       ) : (
         <div className="owner-bookings-list">
@@ -69,7 +70,7 @@ const OwnerBookings = () => {
               <div className="owner-booking-header">
                 <div>
                   <span className="booking-sport">
-                    {booking.court?.sportType}
+                    {getSportLabel(booking.court?.sportType)}
                   </span>
 
                   <h2>{booking.court?.name}</h2>
@@ -80,7 +81,7 @@ const OwnerBookings = () => {
                 <span
                   className={`booking-status ${booking.status.toLowerCase()}`}
                 >
-                  {booking.status}
+                  {getBookingStatusLabel(booking.status)}
                 </span>
               </div>
 
@@ -118,7 +119,7 @@ const OwnerBookings = () => {
                 <div>
                   <span>Thanh toán</span>
 
-                  <strong>{booking.paymentStatus}</strong>
+                  <strong>{getPaymentStatusLabel(booking.paymentStatus)}</strong>
                 </div>
               </div>
             </article>

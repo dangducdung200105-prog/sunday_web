@@ -33,7 +33,7 @@ const AdminOwners = () => {
       <div className="admin-page-header">
         <h1>Quản lý chủ sân</h1>
 
-        <p>Danh sách tài khoản có role OWNER và số sân đang sở hữu.</p>
+        <p>Danh sách tài khoản có vai trò chủ sân và số sân đang sở hữu.</p>
       </div>
 
       <div className="admin-table-wrapper">

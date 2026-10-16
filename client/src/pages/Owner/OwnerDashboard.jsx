@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 
 import { getOwnerStatistics } from "../../services/bookingService";
+import { getBookingStatusLabel, getSportLabel } from "../../utils/displayLabels";
 import "./Owner.css";
 
 const OwnerDashboard = () => {
@@ -38,7 +39,7 @@ const OwnerDashboard = () => {
   if (loading) {
     return (
       <div className="page-container">
-        <p>Đang tải dashboard...</p>
+        <p>Đang tải trang tổng quan...</p>
       </div>
     );
   }
@@ -56,7 +57,7 @@ const OwnerDashboard = () => {
       {/* HEADER */}
 
       <div className="owner-hero">
-        <span>SUNDAY OWNER</span>
+        <span>CHỦ SÂN SUNDAY</span>
 
         <h1>Xin chào, {user?.name}</h1>
 
@@ -77,11 +78,11 @@ const OwnerDashboard = () => {
 
         <div className="owner-stat-card">
           <div className="owner-stat-icon">◷</div>
-          <span>Tổng booking</span>
+          <span>Tổng lượt đặt sân</span>
 
           <strong>{statistics.totalBookings}</strong>
 
-          <small>tất cả booking</small>
+          <small>tất cả lượt đặt sân</small>
         </div>
 
         <div className="owner-stat-card">
@@ -99,7 +100,7 @@ const OwnerDashboard = () => {
 
           <strong>{statistics.totalRevenue.toLocaleString("vi-VN")}đ</strong>
 
-          <small>booking đã thanh toán</small>
+          <small>lượt đặt sân đã thanh toán</small>
         </div>
       </div>
 
@@ -108,7 +109,7 @@ const OwnerDashboard = () => {
       <div className="owner-section owner-panel">
         <div className="owner-section-header">
           <div>
-            <span>SUNDAY OWNER</span>
+            <span>CHỦ SÂN SUNDAY</span>
 
             <h2>Quản lý nhanh</h2>
           </div>
@@ -128,9 +129,9 @@ const OwnerDashboard = () => {
           <Link to="/owner/bookings" className="owner-dashboard-card">
             <span className="owner-card-number">02</span>
 
-            <h2>Booking</h2>
+            <h2>Đơn đặt sân</h2>
 
-            <p>Theo dõi và xử lý booking của khách hàng.</p>
+            <p>Theo dõi và xử lý lượt đặt sân của khách hàng.</p>
 
             <span className="owner-card-arrow">→</span>
           </Link>
@@ -142,9 +143,9 @@ const OwnerDashboard = () => {
       <div className="owner-section owner-panel">
         <div className="owner-section-header">
           <div>
-            <span>SUNDAY OWNER</span>
+            <span>CHỦ SÂN SUNDAY</span>
 
-            <h2>Booking gần đây</h2>
+            <h2>Lượt đặt sân gần đây</h2>
           </div>
 
           <Link to="/owner/bookings" className="owner-section-link">
@@ -154,20 +155,20 @@ const OwnerDashboard = () => {
 
         {recentBookings.length === 0 ? (
           <div className="owner-empty">
-            <h2>Chưa có booking</h2>
+            <h2>Chưa có lượt đặt sân</h2>
 
-            <p>Booking của khách hàng sẽ xuất hiện ở đây.</p>
+            <p>Lượt đặt sân của khách hàng sẽ xuất hiện ở đây.</p>
           </div>
         ) : (
           <div className="owner-recent-list">
             {recentBookings.map((booking) => (
               <div className="owner-recent-card" key={booking._id}>
                 <div>
-                  <span>{booking.court?.sportType}</span>
+                  <span>{getSportLabel(booking.court?.sportType)}</span>
 
                   <h3>{booking.court?.name}</h3>
 
-                  <p>Khách: {booking.user?.name}</p>
+                  <p>Khách hàng: {booking.user?.name}</p>
                 </div>
 
                 <div>
@@ -195,7 +196,7 @@ const OwnerDashboard = () => {
                 <span
                   className={`booking-status ${booking.status.toLowerCase()}`}
                 >
-                  {booking.status}
+                  {getBookingStatusLabel(booking.status)}
                 </span>
               </div>
             ))}

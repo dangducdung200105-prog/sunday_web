@@ -74,7 +74,7 @@ function Matches() {
       <div className="matches-container">
         <header className="matches-header">
           <div>
-            <span>SUNDAY COMMUNITY</span>
+            <span>CỘNG ĐỒNG SUNDAY</span>
 
             <h1>Bạn chơi của tôi</h1>
 
