@@ -26,8 +26,14 @@
 
 import axios from "axios";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
+if (import.meta.env.PROD && !API_URL) {
+  throw new Error("Missing VITE_API_URL environment variable");
+}
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || "http://localhost:5000/api",
+  baseURL: API_URL || "http://localhost:5000/api",
 });
 
 api.interceptors.request.use(
