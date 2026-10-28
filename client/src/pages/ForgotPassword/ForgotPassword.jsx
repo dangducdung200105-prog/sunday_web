@@ -2,29 +2,22 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { forgotPassword } from "../../services/authService";
 
-import TurnstileCaptcha from "../../components/common/TurnstileCaptcha";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
-  const [captchaToken, setCaptchaToken] = useState("");
-  const [captchaVersion, setCaptchaVersion] = useState(0);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      if (!captchaToken) {
-        setError("Vui lòng hoàn thành CAPTCHA.");
-        return;
-      }
       setLoading(true);
       setMessage("");
       setError("");
 
-      const result = await forgotPassword(email, captchaToken);
+      const result = await forgotPassword(email);
 
       setMessage(
         result.message ||
@@ -37,8 +30,6 @@ const ForgotPassword = () => {
       );
     } finally {
       setLoading(false);
-      setCaptchaToken("");
-      setCaptchaVersion((version) => version + 1);
     }
   };
 
@@ -71,11 +62,6 @@ const ForgotPassword = () => {
           onChange={(event) => setEmail(event.target.value)}
           autoComplete="email"
           required
-        />
-        <TurnstileCaptcha
-          key={captchaVersion}
-          action="register"
-          onVerify={setCaptchaToken}
         />
         <button type="submit" disabled={loading}>
           {loading ? "Đang gửi..." : "Gửi liên kết đặt lại mật khẩu"}

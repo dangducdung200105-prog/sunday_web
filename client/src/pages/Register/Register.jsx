@@ -2,7 +2,6 @@ import { useState } from "react";
 
 import { registerUser } from "../../services/authService";
 
-import TurnstileCaptcha from "../../components/common/TurnstileCaptcha";
 const Register = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -14,8 +13,6 @@ const Register = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const [captchaToken, setCaptchaToken] = useState("");
-  const [captchaVersion, setCaptchaVersion] = useState(0);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -30,15 +27,11 @@ const Register = () => {
     event.preventDefault();
 
     try {
-      if (!captchaToken) {
-        setError("Vui lòng hoàn thành CAPTCHA.");
-        return;
-      }
       setLoading(true);
       setError("");
       setSuccess("");
 
-      const result = await registerUser({ ...formData, captchaToken });
+      const result = await registerUser({ ...formData });
 
       setSuccess(
         result.emailSent
@@ -54,8 +47,6 @@ const Register = () => {
       setError(err.response?.data?.message || "Đăng ký thất bại");
     } finally {
       setLoading(false);
-      setCaptchaToken("");
-      setCaptchaVersion((version) => version + 1);
     }
   };
 
@@ -112,11 +103,6 @@ const Register = () => {
           onChange={handleChange}
           minLength={6}
           required
-        />
-        <TurnstileCaptcha
-          key={captchaVersion}
-          action="register"
-          onVerify={setCaptchaToken}
         />
         <button type="submit" disabled={loading}>
           {loading ? "Đang tạo tài khoản..." : "Đăng ký"}

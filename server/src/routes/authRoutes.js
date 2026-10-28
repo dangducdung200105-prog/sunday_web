@@ -11,18 +11,13 @@ const {
 } = require("../controllers/authController");
 
 const authMiddleware = require("../middlewares/authMiddleware");
-const verifyTurnstile = require("../middlewares/verifyTurnstile");
 const router = express.Router();
 
-router.post("/register", verifyTurnstile("register"), register);
+router.post("/register", register);
 
-router.post("/login", verifyTurnstile("login"), login);
+router.post("/login", login);
 
-router.post(
-  "/forgot-password",
-  verifyTurnstile("forgot-password"),
-  forgotPassword,
-);
+router.post("/forgot-password", forgotPassword);
 
 router.post("/verify-email", verifyEmail);
 router.post("/resend-verification", resendVerificationEmail);

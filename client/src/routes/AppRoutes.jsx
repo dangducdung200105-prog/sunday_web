@@ -35,10 +35,10 @@ const AppRoutes = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/verify-email" element={<VerifyEmail />} />
-      <Route element={<ProtectedRoute />}>
-        <Route path="/match" element={<Match />} />
-        <Route path="/matches" element={<Matches />} />
-      </Route>
+      {/* <Route element={<ProtectedRoute />}> */}
+      <Route path="/match" element={<Match />} />
+      <Route path="/matches" element={<Matches />} />
+      {/* </Route> */}
       {/* <Route element={<ProtectedRoute />}>
         <Route path="/my-bookings" element={<MyBookings />} />
         <Route path="/bookings/:id" element={<BookingDetail />} />

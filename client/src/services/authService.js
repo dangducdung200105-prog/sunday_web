@@ -26,10 +26,9 @@ export const resendVerificationEmail = async (email) => {
   return response.data;
 };
 
-export const forgotPassword = async (email, captchaToken) => {
+export const forgotPassword = async (email) => {
   const response = await api.post("/auth/forgot-password", {
     email,
-    captchaToken,
   });
 
   return response.data;
