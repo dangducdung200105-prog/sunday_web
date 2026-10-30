@@ -23,7 +23,7 @@ const Navbar = () => {
     <header className="navbar">
       <div className="navbar-container">
         <Link to="/" className="navbar-logo" onClick={closeMenu}>
-          SUNDAY<span>.</span>
+          <img src="/sunday-logo.svg" alt="Sunday" />
         </Link>
 
         <nav className={`navbar-nav ${menuOpen ? "is-open" : ""}`}>

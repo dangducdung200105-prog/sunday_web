@@ -5,7 +5,7 @@ const Footer = () => {
     <footer className="site-footer">
       <div className="footer-inner">
         <div className="footer-brand">
-          <div className="navbar-logo">SUNDAY</div>
+          <div className="navbar-logo footer-logo"><img src="/sunday-logo.svg" alt="Sunday" /></div>
 
           <p>Nền tảng đặt sân thể thao nhanh chóng và tiện lợi.</p>
         </div>

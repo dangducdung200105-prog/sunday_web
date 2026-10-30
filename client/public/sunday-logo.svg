@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 132" fill="none">
+  <path fill="#13A890" d="M15 43C25 13 48 0 81 0h65c-3 25-19 43-49 51-29 8-54 5-82 5Z"/>
+  <path fill="#075B55" d="M15 119c10-27 33-44 68-51l63-12c-2 30-22 53-54 61-26 7-52 3-77 2Z"/>
+  <text x="176" y="94" fill="#075B55" font-family="Arial, Helvetica, sans-serif" font-size="91" font-weight="700" letter-spacing="-5">Sunday</text>
+  <path fill="#13A890" d="M236 121h47v9h-47z"/><path fill="#075B55" d="M283 121h48v9h-48z"/>
+</svg>

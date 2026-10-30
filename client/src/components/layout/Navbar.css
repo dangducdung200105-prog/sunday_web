@@ -36,21 +36,22 @@
 .navbar-logo {
   flex: 0 0 auto;
   display: inline-flex;
-  align-items: baseline;
+  align-items: center;
 
   color: var(--navbar-text);
   text-decoration: none;
-  font-size: 24px;
   line-height: 1;
-  font-weight: 900;
-  letter-spacing: -0.065em;
 
   transition: transform 0.2s ease;
 }
 
-.navbar-logo span {
-  color: var(--navbar-primary);
+.navbar-logo img {
+  display: block;
+  width: 148px;
+  height: auto;
 }
+
+.footer-logo img { width: 128px; }
 
 .navbar-logo:hover {
   transform: translateY(-1px);
@@ -308,8 +309,10 @@
   }
 
   .navbar-logo {
-    font-size: 22px;
+    width: 132px;
   }
+
+  .navbar-logo img { width: 132px; }
 
   .navbar-menu-button {
     display: flex;
