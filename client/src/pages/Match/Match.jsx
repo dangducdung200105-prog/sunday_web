@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import PlayerCard from "../../components/match/PlayerCard";
 import { getPlayerProfiles, swipePlayer } from "../../services/matchService";
+import { Link } from "react-router-dom";
 import "./Match.css";
 
 const sports = [
@@ -113,6 +114,10 @@ function Match() {
             <span>người chơi</span>
           </div>
         </header>
+
+        <Link className="match-profile-link" to="/profile">
+          Hoàn thiện hồ sơ để mọi người thấy tên, giới tính, ranking, môn chơi và lịch hoạt động của bạn. <strong>Cập nhật hồ sơ →</strong>
+        </Link>
 
         {/* FILTER */}
 

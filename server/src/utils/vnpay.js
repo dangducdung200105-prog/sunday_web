@@ -22,7 +22,11 @@ const createSecureHash = (params) => {
   const signData = qs.stringify(sortedParams, {
     encode: false,
   });
-
+  console.log("========== VNPAY DEBUG ==========");
+  console.log("Signing data:", signData);
+  console.log("Generated signature:", signature);
+  console.log("Signature length:", signature.length);
+  console.log("=================================");
   return crypto
     .createHmac("sha512", process.env.VNPAY_HASH_SECRET)
     .update(Buffer.from(signData, "utf-8"))

@@ -80,6 +80,8 @@
   font-size: 11px;
 }
 
+.match-profile-link{display:block;margin:-8px 0 24px;padding:14px 16px;border:1px solid #cde7d5;border-radius:12px;background:#f0faf3;color:#456252;font-size:13px;line-height:1.6;text-decoration:none}.match-profile-link strong{color:#16834b;white-space:nowrap}.player-identity-meta{display:flex;gap:8px;margin-top:-12px;margin-bottom:14px}.player-identity-meta span{padding:5px 9px;border-radius:999px;background:#f0f6f2;color:#42604c;font-size:11px;font-weight:700}
+
 /* =========================
    FILTER
 ========================= */

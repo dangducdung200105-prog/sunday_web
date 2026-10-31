@@ -16,6 +16,7 @@ import BookingDetail from "../pages/Booking/BookingDetail";
 import OwnerRoute from "./OwnerRoute";
 import Match from "../pages/Match/Match";
 import Matches from "../pages/Matches/Matches";
+import PlayerProfile from "../pages/PlayerProfile/PlayerProfile";
 import VerifyEmail from "../pages/VerifyEmail/VerifyEmail";
 import ForgotPassword from "../pages/ForgotPassword/ForgotPassword";
 import ResetPassword from "../pages/ResetPassword/ResetPassword";
@@ -38,6 +39,9 @@ const AppRoutes = () => {
       {/* <Route element={<ProtectedRoute />}> */}
       <Route path="/match" element={<Match />} />
       <Route path="/matches" element={<Matches />} />
+      <Route element={<ProtectedRoute />}>
+        <Route path="/profile" element={<PlayerProfile />} />
+      </Route>
       {/* </Route> */}
       {/* <Route element={<ProtectedRoute />}>
         <Route path="/my-bookings" element={<MyBookings />} />

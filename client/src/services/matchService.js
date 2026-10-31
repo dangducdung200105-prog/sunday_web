@@ -1,5 +1,15 @@
 import api from "./api";
 
+export const getMyPlayerProfile = async () => {
+  const response = await api.get("/player-profiles/me");
+  return response.data;
+};
+
+export const savePlayerProfile = async (profile, exists) => {
+  const response = exists ? await api.put("/player-profiles/me", profile) : await api.post("/player-profiles", profile);
+  return response.data;
+};
+
 export const getPlayerProfiles = async (params = {}) => {
   const response = await api.get("/match/players", {
     params,

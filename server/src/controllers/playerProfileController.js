@@ -42,12 +42,15 @@ const createProfile = async (req, res) => {
       });
     }
 
-    const { bio, sports, location, preferredTimes, isLookingForPlayers } =
-      req.body;
+    const { displayName, bio, gender, ranking, interests, sports, location, preferredTimes, isLookingForPlayers } = req.body;
 
     const profile = await PlayerProfile.create({
       user: req.user._id,
       bio,
+      displayName,
+      gender,
+      ranking,
+      interests,
       sports,
       location,
       preferredTimes,
@@ -77,8 +80,7 @@ const createProfile = async (req, res) => {
 // PUT /api/player-profiles/me
 const updateMyProfile = async (req, res) => {
   try {
-    const { bio, sports, location, preferredTimes, isLookingForPlayers } =
-      req.body;
+    const { displayName, bio, gender, ranking, interests, sports, location, preferredTimes, isLookingForPlayers } = req.body;
 
     const profile = await PlayerProfile.findOneAndUpdate(
       {
@@ -86,6 +88,10 @@ const updateMyProfile = async (req, res) => {
       },
       {
         bio,
+        displayName,
+        gender,
+        ranking,
+        interests,
         sports,
         location,
         preferredTimes,

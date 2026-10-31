@@ -106,6 +106,7 @@ function Matches() {
           <section className="matches-grid">
             {matches.map((match) => {
               const otherUser = getOtherUser(match);
+              const profile = otherUser?.playerProfile;
 
               if (!otherUser) {
                 return null;
@@ -123,13 +124,20 @@ function Matches() {
 
                   <div className="match-item__content">
                     <div>
-                      <h2>{otherUser.name}</h2>
+                      <h2>{profile?.displayName || otherUser.name}</h2>
 
                       <p>Thành viên SUNDAY</p>
                     </div>
 
                     <span className="match-status">● Đã kết nối</span>
                   </div>
+
+                  {profile && <div className="match-item-profile">
+                    {profile.sports?.length > 0 && <span>{profile.sports.map((sport) => sport.sportType).join(" · ")}</span>}
+                    {profile.ranking && <span>Ranking: {profile.ranking}</span>}
+                    {profile.preferredTimes?.length > 0 && <span>{profile.preferredTimes.join(" · ")}</span>}
+                    {profile.bio && <p>{profile.bio}</p>}
+                  </div>}
 
                   <div className="match-item__footer">
                     <span>

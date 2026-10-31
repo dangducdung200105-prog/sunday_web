@@ -207,10 +207,26 @@ const getMyMatches = async (req, res) => {
         matchedAt: -1,
       });
 
+    const userIds = matches.flatMap((match) => match.users.map((user) => user._id));
+    const profiles = await PlayerProfile.find({ user: { $in: userIds } }).select(
+      "user displayName gender bio ranking sports location preferredTimes interests",
+    );
+    const profileByUser = new Map(
+      profiles.map((profile) => [profile.user.toString(), profile]),
+    );
+    const matchesWithProfiles = matches.map((match) => {
+      const item = match.toObject();
+      item.users = item.users.map((user) => ({
+        ...user,
+        playerProfile: profileByUser.get(user._id.toString()) || null,
+      }));
+      return item;
+    });
+
     res.json({
       success: true,
       count: matches.length,
-      data: matches,
+      data: matchesWithProfiles,
     });
   } catch (error) {
     console.error("GET MATCHES ERROR:", error);

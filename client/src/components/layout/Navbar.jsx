@@ -36,6 +36,12 @@ const Navbar = () => {
           </NavLink>
 
           {isAuthenticated && (
+            <NavLink to="/profile" className={navClass} onClick={closeMenu}>
+              <span>Hồ sơ người chơi</span>
+            </NavLink>
+          )}
+
+          {isAuthenticated && (
             <NavLink to="/my-bookings" className={navClass} onClick={closeMenu}>
               <span>Lịch đặt sân</span>
             </NavLink>

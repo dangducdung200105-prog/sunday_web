@@ -16,6 +16,23 @@ const playerProfileSchema = new mongoose.Schema(
       maxlength: 300,
     },
 
+    displayName: { type: String, trim: true, maxlength: 80, default: "" },
+
+    gender: {
+      type: String,
+      enum: ["MALE", "FEMALE", "OTHER", "PREFER_NOT_TO_SAY"],
+      default: "PREFER_NOT_TO_SAY",
+    },
+
+    ranking: {
+      type: String,
+      trim: true,
+      maxlength: 60,
+      default: "",
+    },
+
+    interests: [{ type: String, trim: true, maxlength: 40 }],
+
     sports: [
       {
         sportType: {
