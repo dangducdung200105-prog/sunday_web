@@ -98,7 +98,11 @@ const createVnpayUrl = (payment, ipAddress = "127.0.0.1") => {
   const sortedParams = sortObject(params);
 
   sortedParams.vnp_SecureHash = createSecureHash(sortedParams);
-
+  console.log("VNPay payment URL:", process.env.VNPAY_PAYMENT_URL);
+  console.log("VNPay TMN Code:", process.env.VNPAY_TMN_CODE);
+  console.log("VNPay amount:", params.vnp_Amount);
+  console.log("VNPay transaction ref:", params.vnp_TxnRef);
+  console.log("VNPay signature length:", sortedParams.vnp_SecureHash.length);
   return `${process.env.VNPAY_PAYMENT_URL}?${qs.stringify(sortedParams, {
     encode: false,
   })}`;
