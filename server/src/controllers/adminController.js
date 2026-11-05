@@ -79,6 +79,51 @@ const getDashboardStats = async (req, res) => {
       weekIndex++;
     }
 
+    // Thống kê chi tiết theo ngày từ 10/10/2026 thể hiện sự biến động lên xuống
+    const dailyRegistrations = [];
+    let curDay = new Date(trialStartDate);
+    let prevDayUsers = null;
+
+    while (curDay <= now) {
+      const nextDay = new Date(curDay);
+      nextDay.setDate(nextDay.getDate() + 1);
+
+      const inDayUsers = allUsersForWeekly.filter((u) => {
+        const d = new Date(u.createdAt);
+        return d >= curDay && d < nextDay;
+      });
+
+      const dayCount = inDayUsers.length;
+      const dayStr = String(curDay.getDate()).padStart(2, "0");
+      const monthStr = String(curDay.getMonth() + 1).padStart(2, "0");
+      const label = `${dayStr}/${monthStr}`;
+
+      let change = 0;
+      let changePercent = 0;
+      if (prevDayUsers !== null) {
+        change = dayCount - prevDayUsers;
+        changePercent =
+          prevDayUsers > 0
+            ? Math.round((change / prevDayUsers) * 100)
+            : change > 0
+            ? 100
+            : 0;
+      }
+      prevDayUsers = dayCount;
+
+      dailyRegistrations.push({
+        date: label,
+        fullDate: `${label}/2026`,
+        users: dayCount,
+        change,
+        changePercent,
+        customers: inDayUsers.filter((u) => u.role === "USER").length,
+        owners: inDayUsers.filter((u) => u.role === "OWNER").length,
+      });
+
+      curDay = nextDay;
+    }
+
     const trialPeriodUsers = weeklyRegistrations.reduce(
       (sum, w) => sum + w.users,
       0
@@ -108,6 +153,7 @@ const getDashboardStats = async (req, res) => {
         },
         revenue: revenueAgg[0]?.total || 0,
         weeklyRegistrations,
+        dailyRegistrations,
       },
     });
   } catch (error) {

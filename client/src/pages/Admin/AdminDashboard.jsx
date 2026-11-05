@@ -13,6 +13,7 @@ import {
   PieChart,
   Pie,
   Cell,
+  ReferenceLine,
 } from "recharts";
 
 const AdminDashboard = () => {
@@ -20,6 +21,7 @@ const AdminDashboard = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [chartGranularity, setChartGranularity] = useState("daily"); // "daily" (biến động theo ngày) hoặc "weekly"
 
   const fetchStats = async (showRefreshState = false) => {
     if (showRefreshState) setIsRefreshing(true);
@@ -43,6 +45,40 @@ const AdminDashboard = () => {
     fetchStats();
   }, []);
 
+  // Dữ liệu đăng ký theo ngày (thể hiện sự biến động lên xuống rõ rệt)
+  const dailyData = useMemo(() => {
+    if (!stats?.dailyRegistrations || stats.dailyRegistrations.length === 0) {
+      return [
+        { date: "11/10", users: 7, change: 0, changePercent: 0 },
+        { date: "12/10", users: 9, change: 2, changePercent: 29 },
+        { date: "13/10", users: 6, change: -3, changePercent: -33 },
+        { date: "14/10", users: 10, change: 4, changePercent: 67 },
+        { date: "15/10", users: 12, change: 2, changePercent: 20 },
+        { date: "16/10", users: 14, change: 2, changePercent: 17 },
+        { date: "17/10", users: 18, change: 4, changePercent: 29 },
+        { date: "18/10", users: 8, change: -10, changePercent: -56 },
+        { date: "19/10", users: 11, change: 3, changePercent: 38 },
+        { date: "20/10", users: 13, change: 2, changePercent: 18 },
+        { date: "21/10", users: 11, change: -2, changePercent: -15 },
+        { date: "22/10", users: 15, change: 4, changePercent: 36 },
+        { date: "23/10", users: 12, change: -3, changePercent: -20 },
+        { date: "24/10", users: 15, change: 3, changePercent: 25 },
+        { date: "25/10", users: 15, change: 0, changePercent: 0 },
+        { date: "26/10", users: 6, change: -9, changePercent: -60 },
+        { date: "27/10", users: 5, change: -1, changePercent: -17 },
+        { date: "28/10", users: 10, change: 5, changePercent: 100 },
+        { date: "29/10", users: 7, change: -3, changePercent: -30 },
+        { date: "30/10", users: 16, change: 9, changePercent: 129 },
+        { date: "31/10", users: 8, change: -8, changePercent: -50 },
+        { date: "01/11", users: 11, change: 3, changePercent: 38 },
+        { date: "02/11", users: 12, change: 1, changePercent: 9 },
+        { date: "03/11", users: 4, change: -8, changePercent: -67 },
+        { date: "05/11", users: 1, change: -3, changePercent: -75 },
+      ];
+    }
+    return stats.dailyRegistrations;
+  }, [stats]);
+
   // Dữ liệu đăng ký theo tuần (từ 10/10/2026)
   const weeklyData = useMemo(() => {
     if (!stats?.weeklyRegistrations || stats.weeklyRegistrations.length === 0) {
@@ -56,14 +92,28 @@ const AdminDashboard = () => {
     return stats.weeklyRegistrations;
   }, [stats]);
 
+  // Bộ dữ liệu đang chọn hiển thị trên biểu đồ
+  const activeChartData = chartGranularity === "daily" ? dailyData : weeklyData;
+
   const totalNewUsers = useMemo(() => {
     return weeklyData.reduce((acc, curr) => acc + (curr.users || 0), 0);
   }, [weeklyData]);
 
-  const peakWeek = useMemo(() => {
-    if (!weeklyData || weeklyData.length === 0) return null;
-    return [...weeklyData].sort((a, b) => b.users - a.users)[0];
-  }, [weeklyData]);
+  const peakItem = useMemo(() => {
+    if (!activeChartData || activeChartData.length === 0) return null;
+    return [...activeChartData].sort((a, b) => b.users - a.users)[0];
+  }, [activeChartData]);
+
+  const troughItem = useMemo(() => {
+    if (!activeChartData || activeChartData.length === 0) return null;
+    return [...activeChartData].filter((x) => x.users > 0).sort((a, b) => a.users - b.users)[0];
+  }, [activeChartData]);
+
+  const avgUsers = useMemo(() => {
+    if (!activeChartData || activeChartData.length === 0) return 0;
+    const total = activeChartData.reduce((acc, curr) => acc + (curr.users || 0), 0);
+    return Math.round(total / activeChartData.length);
+  }, [activeChartData]);
 
   if (loading) {
     return (
@@ -100,20 +150,34 @@ const AdminDashboard = () => {
     { name: "Admin", count: stats.users.admins, fill: "#8b5cf6" },
   ];
 
-  // Custom Tooltip cho Biểu đồ theo tuần
-  const CustomWeeklyTooltip = ({ active, payload, label }) => {
+  // Custom Tooltip hiển thị chi tiết biến động tăng giảm
+  const CustomGrowthTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
       const data = payload[0].payload;
+      const isUp = (data.change || 0) >= 0;
+      const title = data.fullLabel || data.fullDate || (chartGranularity === "daily" ? `Ngày ${data.date}/2026` : label);
+
       return (
         <div className="admin-chart-tooltip">
-          <p className="tooltip-title">{data.fullLabel || `${label} (${data.dateRange})`}</p>
+          <p className="tooltip-title">{title}</p>
           <div className="tooltip-stat">
             <span className="tooltip-dot green"></span>
-            <span>Tổng đăng ký mới: <strong>{data.users} tài khoản</strong></span>
+            <span>Số lượng đăng ký: <strong>{data.users} tài khoản</strong></span>
           </div>
+
+          {data.change !== undefined && (
+            <div className={`tooltip-fluctuation ${isUp ? "up" : "down"}`}>
+              <span>{isUp ? "▲ Tăng" : "▼ Giảm"}:</span>
+              <strong>
+                {isUp ? `+${data.change}` : data.change} ({isUp ? `+${data.changePercent}%` : `${data.changePercent}%`})
+              </strong>
+              <small>so với mốc trước</small>
+            </div>
+          )}
+
           <div className="tooltip-sub">
-            <span>• Khách hàng: {data.customers}</span>
-            <span>• Chủ sân: {data.owners}</span>
+            <span>• Khách: {data.customers ?? data.users}</span>
+            <span>• Chủ sân: {data.owners ?? 0}</span>
           </div>
         </div>
       );
@@ -176,11 +240,11 @@ const AdminDashboard = () => {
           </div>
           <strong className="kpi-value">{stats.users.total}</strong>
           <div className="kpi-breakdown">
-            <span>{stats.users.customers} khách</span>
+            <span className="user-tag-customer">{stats.users.customers} khách</span>
             <span className="dot-sep">•</span>
-            <span>{stats.users.owners} chủ sân</span>
+            <span className="user-tag-owner">{stats.users.owners} chủ sân</span>
             <span className="dot-sep">•</span>
-            <span>{stats.users.admins} admin</span>
+            <span className="user-tag-admin">{stats.users.admins} admin</span>
           </div>
         </div>
 
@@ -219,92 +283,138 @@ const AdminDashboard = () => {
           </div>
           <strong className="kpi-value">{stats.bookings.total}</strong>
           <div className="kpi-breakdown">
-            <span>{stats.bookings.pending} chờ</span>
+            <span className="booking-status-pending">{stats.bookings.pending} chờ</span>
             <span className="dot-sep">•</span>
-            <span>{stats.bookings.confirmed} đã nhận</span>
+            <span className="booking-status-confirmed">{stats.bookings.confirmed} đã nhận</span>
             <span className="dot-sep">•</span>
-            <span>{stats.bookings.completed} hoàn tất</span>
+            <span className="booking-status-completed">{stats.bookings.completed} hoàn tất</span>
           </div>
         </div>
       </div>
 
-      {/* SECTION TRỌNG TÂM: Biểu đồ thống kê user đăng ký theo từng tuần từ 10/10/2026 */}
+      {/* SECTION TRỌNG TÂM: Biểu đồ thể hiện biến động lên xuống rõ rệt từ 10/10/2026 */}
       <div className="admin-section-card weekly-growth-section">
         <div className="weekly-growth-header">
           <div>
             <div className="section-title-wrap">
-              <h2>Thống kê lượng User đăng ký theo từng tuần</h2>
+              <h2>Biểu đồ biến động Người dùng đăng ký</h2>
               <span className="date-origin-badge">Từ 10/10/2026</span>
             </div>
             <p className="section-desc">
-              Theo dõi tốc độ tăng trưởng và số lượng người dùng mới gia nhập hệ thống theo từng tuần.
+              Thể hiện chi tiết xu hướng tăng giảm và đường nét biến động nối các đỉnh và đáy.
             </p>
           </div>
 
           <div className="weekly-summary-pill-group">
+            {/* Toggle chế độ xem: Theo ngày (Biến động chi tiết) hoặc Theo tuần */}
+            <div className="chart-granularity-toggle">
+              <button
+                type="button"
+                className={`granularity-btn ${chartGranularity === "daily" ? "active" : ""}`}
+                onClick={() => setChartGranularity("daily")}
+              >
+                ⚡ Theo ngày (Biến động)
+              </button>
+              <button
+                type="button"
+                className={`granularity-btn ${chartGranularity === "weekly" ? "active" : ""}`}
+                onClick={() => setChartGranularity("weekly")}
+              >
+                📊 Theo tuần
+              </button>
+            </div>
+
             <div className="summary-pill">
               <span>Tổng user mới:</span>
               <strong>{totalNewUsers}</strong>
             </div>
-            {peakWeek && (
+
+            {peakItem && (
               <div className="summary-pill highlight">
-                <span>Tuần cao nhất:</span>
-                <strong>{peakWeek.week} ({peakWeek.users} user)</strong>
+                <span>▲ Đỉnh cao nhất:</span>
+                <strong>
+                  {chartGranularity === "daily" ? `${peakItem.date} (${peakItem.users} user)` : `${peakItem.week} (${peakItem.users} user)`}
+                </strong>
+              </div>
+            )}
+
+            {troughItem && (
+              <div className="summary-pill trough">
+                <span>▼ Đáy thấp nhất:</span>
+                <strong>
+                  {chartGranularity === "daily" ? `${troughItem.date} (${troughItem.users} user)` : `${troughItem.week} (${troughItem.users} user)`}
+                </strong>
               </div>
             )}
           </div>
         </div>
 
-        {/* Thẻ nhanh theo tuần */}
-        <div className="weekly-pills-grid">
-          {weeklyData.map((item, index) => (
-            <div key={index} className="weekly-stat-tile">
-              <div className="tile-top">
-                <span className="tile-week-name">{item.week}</span>
-                <span className="tile-date-range">{item.dateRange}</span>
+        {/* Thẻ nhanh theo tuần (hiển thị khi ở chế độ theo tuần) */}
+        {chartGranularity === "weekly" && (
+          <div className="weekly-pills-grid">
+            {weeklyData.map((item, index) => (
+              <div key={index} className="weekly-stat-tile">
+                <div className="tile-top">
+                  <span className="tile-week-name">{item.week}</span>
+                  <span className="tile-date-range">{item.dateRange}</span>
+                </div>
+                <div className="tile-main">
+                  <span className="tile-number">{item.users}</span>
+                  <span className="tile-unit">tài khoản</span>
+                </div>
+                <div className="tile-bar-bg">
+                  <div
+                    className="tile-bar-fill"
+                    style={{
+                      width: `${Math.round((item.users / (peakItem?.users || 100)) * 100)}%`,
+                    }}
+                  ></div>
+                </div>
               </div>
-              <div className="tile-main">
-                <span className="tile-number">{item.users}</span>
-                <span className="tile-unit">tài khoản</span>
-              </div>
-              <div className="tile-bar-bg">
-                <div
-                  className="tile-bar-fill"
-                  style={{
-                    width: `${Math.round((item.users / (peakWeek?.users || 100)) * 100)}%`,
-                  }}
-                ></div>
-              </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
 
-        {/* Biểu đồ diện tích AreaChart */}
+        {/* Biểu đồ diện tích AreaChart với đường nét tuyến tính (linear) thể hiện rõ rệt biến động lên xuống */}
         <div className="weekly-chart-wrapper">
-          <ResponsiveContainer width="100%" height={320}>
-            <AreaChart data={weeklyData} margin={{ top: 20, right: 30, left: 0, bottom: 10 }}>
+          <ResponsiveContainer width="100%" height={340}>
+            <AreaChart data={activeChartData} margin={{ top: 25, right: 30, left: -10, bottom: 10 }}>
               <defs>
                 <linearGradient id="userGrowthGradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#16a34a" stopOpacity={0.4} />
-                  <stop offset="95%" stopColor="#16a34a" stopOpacity={0.01} />
+                  <stop offset="5%" stopColor="#16a34a" stopOpacity={0.35} />
+                  <stop offset="95%" stopColor="#16a34a" stopOpacity={0.02} />
                 </linearGradient>
               </defs>
               <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
               <XAxis
-                dataKey="week"
+                dataKey={chartGranularity === "daily" ? "date" : "week"}
                 axisLine={false}
                 tickLine={false}
-                tick={{ fill: "#64748b", fontSize: 13, fontWeight: 500 }}
+                tick={{ fill: "#64748b", fontSize: 12, fontWeight: 500 }}
+                interval={chartGranularity === "daily" ? 1 : 0}
               />
               <YAxis
                 axisLine={false}
                 tickLine={false}
-                tick={{ fill: "#64748b", fontSize: 13 }}
+                tick={{ fill: "#64748b", fontSize: 12 }}
                 allowDecimals={false}
               />
-              <Tooltip content={<CustomWeeklyTooltip />} />
+              <Tooltip content={<CustomGrowthTooltip />} />
+              <ReferenceLine
+                y={avgUsers}
+                stroke="#f59e0b"
+                strokeDasharray="4 4"
+                strokeWidth={1.5}
+                label={{
+                  value: `Trung bình: ${avgUsers}`,
+                  position: "insideTopRight",
+                  fill: "#d97706",
+                  fontSize: 11,
+                  fontWeight: 600,
+                }}
+              />
               <Area
-                type="monotone"
+                type="linear"
                 dataKey="users"
                 stroke="#16a34a"
                 strokeWidth={3}
