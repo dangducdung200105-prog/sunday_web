@@ -19,6 +19,7 @@ const getDashboardStats = async (req, res) => {
       cancelledBookings,
       completedBookings,
       revenueAgg,
+      allUsersForWeekly,
     ] = await Promise.all([
       User.countDocuments({ role: "USER" }),
       User.countDocuments({ role: "OWNER" }),
@@ -35,7 +36,53 @@ const getDashboardStats = async (req, res) => {
         { $match: { paymentStatus: "PAID" } },
         { $group: { _id: null, total: { $sum: "$price" } } },
       ]),
+      User.find({}, "createdAt role").lean(),
     ]);
+
+    // Thống kê người dùng đăng ký theo từng tuần từ ngày 10/10/2026
+    const trialStartDate = new Date("2026-10-10T00:00:00");
+    const now = new Date();
+    const weeklyRegistrations = [];
+
+    let currentStart = new Date(trialStartDate);
+    let weekIndex = 1;
+
+    while (currentStart <= now) {
+      let currentEnd = new Date(currentStart);
+      currentEnd.setDate(currentEnd.getDate() + 6);
+      currentEnd.setHours(23, 59, 59, 999);
+
+      const inWeekUsers = allUsersForWeekly.filter((u) => {
+        const d = new Date(u.createdAt);
+        return d >= currentStart && d <= currentEnd;
+      });
+
+      const formatDate = (d) => {
+        const day = String(d.getDate()).padStart(2, "0");
+        const month = String(d.getMonth() + 1).padStart(2, "0");
+        return `${day}/${month}`;
+      };
+
+      const sStr = formatDate(currentStart);
+      const eStr = formatDate(currentEnd);
+
+      weeklyRegistrations.push({
+        week: `Tuần ${weekIndex}`,
+        dateRange: `${sStr} - ${eStr}`,
+        fullLabel: `Tuần ${weekIndex} (${sStr} - ${eStr})`,
+        users: inWeekUsers.length,
+        customers: inWeekUsers.filter((u) => u.role === "USER").length,
+        owners: inWeekUsers.filter((u) => u.role === "OWNER").length,
+      });
+
+      currentStart.setDate(currentStart.getDate() + 7);
+      weekIndex++;
+    }
+
+    const trialPeriodUsers = weeklyRegistrations.reduce(
+      (sum, w) => sum + w.users,
+      0
+    );
 
     res.status(200).json({
       success: true,
@@ -45,6 +92,7 @@ const getDashboardStats = async (req, res) => {
           customers: totalUsers,
           owners: totalOwners,
           admins: totalAdmins,
+          trialPeriodUsers,
         },
         courts: {
           total: totalCourts,
@@ -59,6 +107,7 @@ const getDashboardStats = async (req, res) => {
           completed: completedBookings,
         },
         revenue: revenueAgg[0]?.total || 0,
+        weeklyRegistrations,
       },
     });
   } catch (error) {

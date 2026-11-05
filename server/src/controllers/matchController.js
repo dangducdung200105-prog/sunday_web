@@ -1,14 +1,37 @@
 const PlayerProfile = require("../models/PlayerProfile");
 const Swipe = require("../models/Swipe");
 const Match = require("../models/Match");
+const User = require("../models/User");
 const mongoose = require("mongoose");
 
 // GET /api/match/players
 const getPlayers = async (req, res) => {
   try {
-    const { sport, district, skillLevel } = req.query;
+    const { sport, district, skillLevel, search } = req.query;
 
     const currentUserId = req.user._id;
+
+    // Đảm bảo các user mới đều có PlayerProfile
+    const missingProfileUsers = await User.find({
+      _id: { $nin: await PlayerProfile.distinct("user") },
+    }).lean();
+
+    if (missingProfileUsers.length > 0) {
+      const defaultProfiles = missingProfileUsers.map((u) => ({
+        user: u._id,
+        displayName: u.name || "Người chơi SUNDAY",
+        gender: "PREFER_NOT_TO_SAY",
+        bio: "Thành viên yêu thích thể thao SUNDAY.",
+        sports: [
+          { sportType: "FOOTBALL", skillLevel: "INTERMEDIATE" },
+          { sportType: "BADMINTON", skillLevel: "BEGINNER" },
+        ],
+        location: { district: "Cầu Giấy", city: "Hà Nội" },
+        preferredTimes: ["18:00 - 20:00", "Cuối tuần"],
+        isLookingForPlayers: true,
+      }));
+      await PlayerProfile.insertMany(defaultProfiles, { ordered: false }).catch(() => {});
+    }
 
     // Những người mà user hiện tại đã swipe
     const swipedUsers = await Swipe.find({
@@ -16,14 +39,12 @@ const getPlayers = async (req, res) => {
     }).select("toUser");
 
     const excludedIds = swipedUsers.map((swipe) => swipe.toUser);
-
     excludedIds.push(currentUserId);
 
     const filter = {
       user: {
         $nin: excludedIds,
       },
-
       isLookingForPlayers: true,
     };
 
@@ -32,21 +53,31 @@ const getPlayers = async (req, res) => {
     }
 
     if (district) {
-      filter["location.district"] = district;
+      filter["location.district"] = { $regex: district.trim(), $options: "i" };
     }
 
     if (skillLevel) {
       filter["sports.skillLevel"] = skillLevel.toUpperCase();
     }
 
+    if (search && search.trim()) {
+      filter.$or = [
+        { displayName: { $regex: search.trim(), $options: "i" } },
+        { bio: { $regex: search.trim(), $options: "i" } },
+        { "location.district": { $regex: search.trim(), $options: "i" } },
+      ];
+    }
+
     const profiles = await PlayerProfile.find(filter)
-      .populate("user", "name avatar phone")
-      .limit(30);
+      .populate("user", "name avatar phone email role")
+      .sort({ updatedAt: -1 });
+
+    const validProfiles = profiles.filter((p) => p.user);
 
     res.json({
       success: true,
-      count: profiles.length,
-      data: profiles,
+      count: validProfiles.length,
+      data: validProfiles,
     });
   } catch (error) {
     console.error("GET PLAYERS ERROR:", error);

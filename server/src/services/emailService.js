@@ -96,13 +96,25 @@
 
 const { Resend } = require("resend");
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+let resendClient = null;
+
+const getResendClient = () => {
+  if (!process.env.RESEND_API_KEY) {
+    throw new Error("RESEND_API_KEY is not configured");
+  }
+
+  if (!resendClient) {
+    resendClient = new Resend(process.env.RESEND_API_KEY);
+  }
+
+  return resendClient;
+};
 
 const getClientUrl = () => {
   const clientUrl = process.env.CLIENT_URL?.replace(/\/+$/, "");
 
   if (!clientUrl) {
-    throw new Error("CLIENT_URL is not configured");
+    return "http://localhost:5173";
   }
 
   return clientUrl;
@@ -116,6 +128,8 @@ const sendEmail = async ({ to, subject, text, html }) => {
   if (!process.env.EMAIL_FROM) {
     throw new Error("EMAIL_FROM is not configured");
   }
+
+  const resend = getResendClient();
 
   const { data, error } = await resend.emails.send({
     from: process.env.EMAIL_FROM,
