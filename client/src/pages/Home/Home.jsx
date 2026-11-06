@@ -386,7 +386,7 @@ const Home = () => {
                 <span className="pricing-plan-badge badge--featured">GÓI CƠ BẢN</span>
                 <div className="pricing-price-wrap">
                   <h3 className="pricing-price-main">
-                    59.000 <span className="pricing-unit">VNĐ/tháng</span>
+                    39.000 <span className="pricing-unit">VNĐ/tháng</span>
                   </h3>
                 </div>
 
