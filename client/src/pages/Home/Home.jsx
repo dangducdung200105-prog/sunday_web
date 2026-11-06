@@ -59,7 +59,7 @@ const Home = () => {
           <div className="hero-content">
             <span className="hero-badge">
               <span className="hero-badge-dot" />
-            BẮT ĐẦU TRẬN ĐẤU CỦA BẠN
+              BẮT ĐẦU TRẬN ĐẤU CỦA BẠN
             </span>
 
             <h1>
@@ -306,6 +306,148 @@ const Home = () => {
               <span>Doanh thu tháng này</span>
               <strong>24.8M</strong>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* PRICING SECTION - BẢNG GIÁ DÀNH CHO NGƯỜI DÙNG */}
+      <section className="home-section pricing-section" id="pricing">
+        <div className="home-container">
+          <div className="section-heading pricing-heading">
+            <span className="eyebrow">BẢNG GIÁ DỊCH VỤ</span>
+            <h2 className="section-title">Chọn gói trải nghiệm của bạn</h2>
+            <p className="section-description">
+              Đặt sân hoàn toàn miễn phí hoặc nâng cấp gói Premium để mở khóa tính năng Ghép đối (Matchmaking) tìm bạn chơi cùng đẳng cấp.
+            </p>
+          </div>
+
+          <div className="pricing-grid">
+            {/* Card 1: Gói Miễn Phí */}
+            <div className="pricing-card">
+              <div className="pricing-card-header">
+                <span className="pricing-plan-badge">GÓI MIỄN PHÍ</span>
+                <div className="pricing-price-wrap">
+                  <h3 className="pricing-price-main">MIỄN PHÍ</h3>
+                </div>
+                <p className="pricing-subtitle">Dùng thử không giới hạn</p>
+              </div>
+
+              <div className="pricing-card-divider" />
+
+              <ul className="pricing-feature-list">
+                <li>
+                  <svg className="pricing-check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="10" />
+                    <polyline points="8 12 11 15 16 10" />
+                  </svg>
+                  <span>Tìm kiếm sân & đặt chỗ tức thì</span>
+                </li>
+                <li>
+                  <svg className="pricing-check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="10" />
+                    <polyline points="8 12 11 15 16 10" />
+                  </svg>
+                  <span>Quản lý lịch đặt sân cá nhân</span>
+                </li>
+                <li>
+                  <svg className="pricing-check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="10" />
+                    <polyline points="8 12 11 15 16 10" />
+                  </svg>
+                  <span>Tham gia CLB & giải đấu thể thao</span>
+                </li>
+                <li className="feature--disabled">
+                  <svg className="pricing-cross-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="15" y1="9" x2="9" y2="15" />
+                    <line x1="9" y1="9" x2="15" y2="15" />
+                  </svg>
+                  <span>Tính năng Ghép đối (Tìm bạn chơi cùng)</span>
+                </li>
+                <li>
+                  <svg className="pricing-check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="10" />
+                    <polyline points="8 12 11 15 16 10" />
+                  </svg>
+                  <span>Support qua email</span>
+                </li>
+              </ul>
+
+              <Link to="/register?role=USER&plan=FREE" className="pricing-btn">
+                ĐĂNG KÝ DÙNG THỬ
+              </Link>
+            </div>
+
+            {/* Card 2: Gói Cơ Bản / Premium */}
+            <div className="pricing-card pricing-card--featured">
+              <div className="pricing-popular-badge">KHUYÊN DÙNG</div>
+
+              <div className="pricing-card-header">
+                <span className="pricing-plan-badge badge--featured">GÓI CƠ BẢN</span>
+                <div className="pricing-price-wrap">
+                  <h3 className="pricing-price-main">
+                    59.000 <span className="pricing-unit">VNĐ/tháng</span>
+                  </h3>
+                </div>
+
+              </div>
+
+              <div className="pricing-card-divider" />
+
+              <ul className="pricing-feature-list">
+                <li className="feature--highlight">
+                  <svg className="pricing-check-icon icon--featured" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="10" />
+                    <polyline points="8 12 11 15 16 10" />
+                  </svg>
+                  <span>Mở khóa tính năng Ghép đối (Tìm bạn chơi)</span>
+                </li>
+                <li>
+                  <svg className="pricing-check-icon icon--featured" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="10" />
+                    <polyline points="8 12 11 15 16 10" />
+                  </svg>
+                  <span>Tìm bạn chơi theo trình độ & khu vực</span>
+                </li>
+                <li>
+                  <svg className="pricing-check-icon icon--featured" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="10" />
+                    <polyline points="8 12 11 15 16 10" />
+                  </svg>
+                  <span>Ưu tiên hiển thị hồ sơ người chơi nổi bật</span>
+                </li>
+                <li>
+                  <svg className="pricing-check-icon icon--featured" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="10" />
+                    <polyline points="8 12 11 15 16 10" />
+                  </svg>
+                  <span>Hỗ trợ qua zalo linh hoạt</span>
+                </li>
+                <li>
+                  <svg className="pricing-check-icon icon--featured" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="10" />
+                    <polyline points="8 12 11 15 16 10" />
+                  </svg>
+                  <span>Đăng ký gói năm free thêm 1 tháng</span>
+                </li>
+              </ul>
+
+              <Link to="/register?role=USER&plan=PREMIUM" className="pricing-btn pricing-btn--featured">
+                ĐĂNG KÝ NGAY
+              </Link>
+            </div>
+          </div>
+
+          {/* Banner thông báo dành cho Chủ sân: hoàn toàn miễn phí */}
+          <div className="pricing-owner-banner">
+            <div className="pricing-owner-banner-badge">CHỦ SÂN</div>
+            <div className="pricing-owner-banner-text">
+              <strong>Bạn là Chủ cụm sân thể thao?</strong>
+              <span>SUNDAY hiện đang hỗ trợ số hóa và quản lý sân 100% MIỄN PHÍ, không thu phí dịch vụ hay hoa hồng.</span>
+            </div>
+            <Link to="/register?role=OWNER" className="pricing-owner-btn">
+              Đăng ký chủ sân miễn phí →
+            </Link>
           </div>
         </div>
       </section>

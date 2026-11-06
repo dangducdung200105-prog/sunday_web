@@ -15,6 +15,7 @@ const Footer = () => {
 
           <Link to="/">Trang chủ</Link>
           <Link to="/courts">Tìm sân</Link>
+          <a href="/#pricing">Bảng giá dịch vụ</a>
           <Link to="/register">Đăng ký chủ sân</Link>
         </div>
 
